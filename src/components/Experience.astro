@@ -1,0 +1,108 @@
+---
+const entries = [
+  {
+    kind: 'Research',
+    title: 'Student researcher · aquaculture computer vision',
+    body: '2026 – present, under faculty supervision at IU. AquaVision-X (fish disease; results frozen Aug 2026) and ShrimpVision (shrimp disease; in progress). Python and PyTorch on Colab and Kaggle GPUs.',
+  },
+  {
+    kind: 'Hackathon',
+    title: 'SkyTrack drone hackathon prototype',
+    body: 'Sep 2026. Two-tier crop-survey mission with a battery-aware guard, tested offline against a mock drone adapter.',
+  },
+  {
+    kind: 'Education',
+    title: 'International University, VNU-HCM',
+    body: 'Electronics & Telecommunications, in progress (3rd year). Thesis: SmartGate edge-AI access control, build planned for 2028.',
+  },
+  {
+    kind: 'Collaboration',
+    title: 'Robot Solving Cube · EPHEC University, Belgium',
+    body: 'March 2025. Worked with electrical-electronics students from EPHEC on a cube-solving robot project.',
+  },
+  {
+    kind: 'Team project',
+    title: 'Drone prototypes · Electrical-Electronics Dept.',
+    body: 'Designed, assembled and programmed remote-controlled drone models; tested further prototypes beyond the coursework.',
+  },
+  {
+    kind: 'Award',
+    title: 'Merit-based scholarship',
+    body: 'Semester II, Academic Year 2024–2025.',
+  },
+  {
+    kind: 'Certificate',
+    title: 'IELTS 6.5',
+    body: 'Academic and daily-use English.',
+  },
+  {
+    kind: 'Venture',
+    title: 'Founder · small business (shoes and pets)',
+    body: 'Sourced and imported goods for domestic customers and handled product content and digital promotion.',
+  },
+];
+---
+
+<section id="experience" aria-labelledby="experience-title">
+  <h2 class="label" id="experience-title">experience</h2>
+  <ol class="timeline">
+    {
+      entries.map((e) => (
+        <li>
+          <span class="kind mono">{e.kind}</span>
+          <div>
+            <h3>{e.title}</h3>
+            <p class="muted">{e.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  <p class="direction">
+    <span class="mono">Direction:</span> computer-vision and embedded / IoT engineering, and aviation engineering
+    (maintenance and flight management).
+  </p>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .timeline li {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 16px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    margin: 0;
+  }
+  .timeline li:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+  .kind {
+    font-size: 12.5px;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+  .timeline h3 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+  .timeline p {
+    margin: 0;
+    font-size: 15px;
+  }
+  .direction {
+    margin: 20px 0 0;
+    font-size: 15px;
+  }
+
+  @media (max-width: 560px) {
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

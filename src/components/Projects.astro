@@ -1,0 +1,385 @@
+---
+interface Study {
+  name: string;
+  status: string;
+  meta: string;
+  summary: string;
+  table?: { head: string[]; rows: string[][]; note: string };
+  bullets: string[];
+  tags: string[];
+}
+
+const research: Study[] = [
+  {
+    name: 'AquaVision-X: finding and cutting a background shortcut',
+    status: 'student research · 2026 · results frozen',
+    meta: 'Freshwater fish disease · 7 classes · ~2,400 images · EfficientNetV2-S + ViT-B/16 (113.5M params)',
+    summary:
+      'A fish-disease classifier scored macro-F1 ≈ 0.96, but was it looking at the fish? I measured how much it reads the background, showed the dependence is causal, and cut it almost in half at no accuracy cost.',
+    table: {
+      head: ['Step', 'Measurement', 'Result'],
+      rows: [
+        ['1 · Correlation', 'Fish erased, background only (full image: 0.9583)', 'macro-F1 0.7049 [0.6467, 0.7550] vs 0.1429 chance'],
+        ['2 · Causation', 'Keep the fish, swap in a background from another class (n = 489)', "Predicts the background's class 23.1 % of the time vs 16.7 % chance (z = +3.82, p = 1.3e-4)"],
+        ['3 · Remedy', 'Randomize the background during training', 'Dependence cut by 48.9 %; clean macro-F1 0.9443 → 0.9551'],
+      ],
+      note: 'Row 1 was trained at 384 px / 10 epochs, rows 2–3 at 224 px / 20 epochs; comparisons inside a row are controlled. 0.7049 is a lower bound, because 38 % of fish masks include some background.',
+    },
+    bullets: [
+      '224 px is enough: an equivalence test (TOST, margin ±0.02) passed, saving 2.2× compute over 384 px.',
+      'A fusion bug silently killed the ViT branch: randomizing all 85.8M of its parameters changed no output bit, and it cost 18.4 macro-F1 points. A CPU check now catches this in seconds.',
+      'Negative result kept: SAM lesion masks do not localize disease (empty-mask rate flat across classes, χ² p = 0.35; balanced accuracy 0.507 [0.487, 0.528]), so the lesion-synthesis idea was dropped.',
+    ],
+    tags: ['Python', 'PyTorch', 'timm', 'scikit-learn', 'OpenCV', 'Segment Anything', 'Colab (L4)'],
+  },
+  {
+    name: 'ShrimpVision: shrimp disease diagnosis from images',
+    status: 'student research · in progress',
+    meta: 'Merged public datasets · 5 classes · 2,149 images · 7 architectures · Kaggle T4',
+    summary:
+      'Seven architectures compared under one protocol, with multiple seeds, bootstrap confidence intervals and multiple-comparison correction. The hybrid convolution + attention model (CAFormer-S18) leads on the hardest class, WSSV + Black Gill co-infection. It is the only per-class difference that survives Bonferroni correction (p = 0.0077, 3 seeds).',
+    bullets: [
+      'Every number in the results ledger is traced to a file. Predictions are written down before each run, not after.',
+      '60 CPU-run test scripts guard the training pipeline against silent failures, including negative controls that must catch the bug they target.',
+    ],
+    tags: ['Python', 'PyTorch', 'timm', 'scikit-learn', 'SciPy', 'Kaggle (T4)'],
+  },
+];
+
+const tiers = [
+  {
+    name: 'Edge AI node · Raspberry Pi 4B',
+    body: 'YuNet → SFace face ID · YOLO-n → CRNN plate OCR · YAML rule engine (hot reload) · SQLite log · FastAPI kiosk · Telegram evidence alerts',
+    link: 'Isolated RS-485 · Modbus RTU · 115200 8E1 · heartbeat 0.5 s',
+  },
+  {
+    name: 'Field nodes · 2× STM32F411 (Modbus slaves)',
+    body: 'Node 1 gate: barrier FSM, inductive-loop detector, photo-eye, signal tower. Node 2 door: maglock, solenoid, RFID, mmWave radar, pan-tilt PWM',
+    link: 'Opto-isolated I/O · 12 V DIN-rail supply',
+  },
+  {
+    name: 'Field devices',
+    body: 'Barrier motor, maglock, solenoid, reed / exit / fire inputs, E-stop, warning light tower',
+    link: null,
+  },
+];
+
+const kpis = [
+  ['Face verification, TAR @ FAR 1 %', '≥ 95 %', '≥ 10 consenting subjects, ROC / EER'],
+  ['Recognition → command latency, p95', '≤ 500 ms', 'Timestamps, n ≥ 100'],
+  ['Decision → actuator command', '≤ 20 ms', 'Logic analyser on RS-485'],
+  ['Heartbeat loss → SAFE state', '≤ 3.5 s', 'Unplug the bus, measure'],
+  ['Offline operation', '100 % local decisions', 'WAN unplugged, fault injection'],
+];
+
+const systemsOther = [
+  {
+    name: 'Active-vision kiosk camera',
+    status: 'SmartGate module A · design',
+    summary:
+      'A 2-axis pan-tilt camera closes a perception–action loop. The face box from the existing detector gives a pixel error; a ~15 Hz PID turns it into pan/tilt setpoints; the STM32 enforces angle and slew limits. No extra inference cost. Loop delay is about 60–100 ms, so gains stay low with a ±12 px deadband.',
+    result:
+      'Planned experiment: fixed vs active camera on a 25-position grid, ≥ 3 trials each. Target: settling ≤ 1.0 s, overshoot ≤ 20 %.',
+    tags: ['PID', 'Visual servoing', 'PWM', 'Modbus registers'],
+  },
+];
+
+const others = [
+  {
+    name: 'SkyTrack: two-tier crop-survey drone mission',
+    status: 'hackathon prototype · 2026',
+    summary:
+      'Survey at 60 m, confirm at 18 m. Tier 1 flies a lawnmower pattern and flags stressed-crop areas with the Excess Green index: pure Python and NumPy, no deep learning, no GPU. Chromatic normalization makes it brightness-invariant, and median/MAD thresholds adapt to each field. Tier 2 descends only to suspicious spots and re-checks with a stricter threshold (hysteresis). A mandatory guard asks before every leg whether the drone can still reach home with reserve, and every mission ends in return-to-launch and land. A platform adapter keeps the SDK out of the core, so the same code runs on a mock at home.',
+    result:
+      'Offline self-test on synthetic fields with known ground truth: 8 random fields, precision 1.00, recall 0.77 (F1 0.85). 56 of 57 checks pass; one edge case (a diseased patch touching a walkway) is still open.',
+    tags: ['Python', 'NumPy', 'Robust statistics', 'Path planning', 'Adapter pattern'],
+  },
+  {
+    name: 'Drone prototypes',
+    status: 'Department group project',
+    summary:
+      'Designed, assembled and programmed remote-controlled drone models as a team in the Electrical-Electronics Department, then tested further prototypes beyond the coursework.',
+    result: null,
+    tags: ['Hardware assembly', 'Embedded programming', 'Teamwork'],
+  },
+  {
+    name: 'Robot Solving Cube',
+    status: 'Mar 2025 · international collaboration',
+    summary:
+      'Worked with electrical-electronics students from EPHEC University, Belgium, on a cube-solving robot project.',
+    result: null,
+    tags: ['Robotics', 'Cross-university teamwork'],
+  },
+];
+---
+
+<section id="projects" aria-labelledby="projects-title">
+  <h2 class="label" id="projects-title">projects</h2>
+
+  <h3 class="group mono">Research · AI &amp; computer vision</h3>
+  {
+    research.map((p) => (
+      <article>
+        <header>
+          <h3>{p.name}</h3>
+          <span class="status">{p.status}</span>
+        </header>
+        <p class="meta mono">{p.meta}</p>
+        <p>{p.summary}</p>
+        {p.table && (
+          <>
+            <div class="table-wrap">
+              <table class="stack-sm">
+                <thead>
+                  <tr>
+                    {p.table.head.map((h) => (
+                      <th>{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {p.table.rows.map((row) => (
+                    <tr>
+                      {row.map((cell, i) => (
+                        <td class={i === 0 ? 'mono' : undefined} data-label={p.table!.head[i]}>
+                          {cell}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p class="note muted">{p.table.note}</p>
+          </>
+        )}
+        <ul class="points">
+          {p.bullets.map((b) => (
+            <li>{b}</li>
+          ))}
+        </ul>
+        <ul class="tags" aria-label="Technologies">
+          {p.tags.map((t) => (
+            <li>{t}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+
+  <h3 class="group mono">Systems · embedded &amp; hardware</h3>
+  <article class="featured">
+    <header>
+      <h3>SmartGate: edge-AI access control</h3>
+      <span class="status">design phase</span>
+    </header>
+    <p class="meta mono">EE thesis · build planned for 2028 · Raspberry Pi 4B + 2× STM32F411</p>
+
+    <p>
+      Face and Vietnamese license-plate recognition, time-window access rules, IF-THEN automation and Telegram
+      evidence alerts on <strong>one low-cost edge computer</strong>. It must keep deciding with the internet down, and
+      its electrical design must hold up to an EE committee.
+    </p>
+
+    <h4 class="mono">Architecture</h4>
+    <ol class="arch" aria-label="Three-tier architecture">
+      {
+        tiers.map((t) => (
+          <li>
+            <div class="tier">
+              <strong class="mono">{t.name}</strong>
+              <span>{t.body}</span>
+            </div>
+            {t.link && <div class="link mono">↕ {t.link}</div>}
+          </li>
+        ))
+      }
+    </ol>
+
+    <h4 class="mono">Key decisions</h4>
+    <ul class="points">
+      <li>
+        <strong>Event-driven inference.</strong> mmWave radar (people) and an inductive loop (vehicles) trigger the
+        pipeline. Face detection idles near 2 fps; recognition runs once per track with k-of-n confirmation. This is
+        what makes a CPU-only Pi 4B viable.
+      </li>
+      <li>
+        <strong>No LLM in the access path.</strong> Latency, non-determinism and internet dependency rule it out. A
+        deterministic rule engine decides; the language agent is supervisory and can call only whitelisted, non-safety
+        tools.
+      </li>
+      <li>
+        <strong>Safety lives in firmware.</strong> E-stop, photo-eye reversal and heartbeat-loss fail-safe run on the
+        STM32 nodes. Python can only request actions.
+      </li>
+      <li>
+        <strong>Versioned Pi↔MCU contract.</strong> The Modbus register map (now v0.2) changes together with firmware
+        and docs.
+      </li>
+      <li>
+        <strong>Accelerator by measurement.</strong> Hailo-8 rejected (Pi 4B exposes no PCIe). Coral USB stays optional
+        until a measured benchmark gate says otherwise.
+      </li>
+    </ul>
+
+    <h4 class="mono">Delivered so far</h4>
+    <ul class="points">
+      <li>
+        900-line technical proposal: architecture, power tree, RS-485 timing analysis, and a 16-KPI evaluation plan.
+      </li>
+      <li>Bill of materials: 14,998,500 VND including 10 % contingency, inside a 15 M VND budget.</li>
+      <li>Modbus register map v0.2 for the gate and door nodes, plus the Python package skeleton and config schema.</li>
+    </ul>
+
+    <h4 class="mono">Evaluation targets <span class="muted">(proposals, not yet measured)</span></h4>
+    <div class="table-wrap">
+      <table class="stack-sm">
+        <thead>
+          <tr><th>Metric</th><th>Target</th><th>Method</th></tr>
+        </thead>
+        <tbody>
+          {
+            kpis.map(([metric, target, method]) => (
+              <tr>
+                <td data-label="Metric">{metric}</td>
+                <td class="mono" data-label="Target">{target}</td>
+                <td class="muted" data-label="Method">{method}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+    <p class="note muted">
+      No benchmark has been run yet. Results will be reported as measured, failures included.
+    </p>
+
+    <ul class="tags" aria-label="Technologies">
+      {
+        ['Python', 'OpenCV', 'ONNX Runtime', 'FastAPI', 'STM32', 'RS-485', 'Modbus RTU', 'KiCad'].map((t) => (
+          <li>{t}</li>
+        ))
+      }
+    </ul>
+  </article>
+
+  {
+    systemsOther.map((p) => (
+      <article>
+        <header>
+          <h3>{p.name}</h3>
+          <span class="status">{p.status}</span>
+        </header>
+        <p>{p.summary}</p>
+        {p.result && <p class="muted">{p.result}</p>}
+        <ul class="tags" aria-label="Technologies">
+          {p.tags.map((t) => (
+            <li>{t}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+
+  <h3 class="group mono">Other</h3>
+  {
+    others.map((p) => (
+      <article>
+        <header>
+          <h3>{p.name}</h3>
+          <span class="status">{p.status}</span>
+        </header>
+        <p>{p.summary}</p>
+        {p.result && <p class="muted">{p.result}</p>}
+        <ul class="tags" aria-label="Technologies">
+          {p.tags.map((t) => (
+            <li>{t}</li>
+          ))}
+        </ul>
+      </article>
+    ))
+  }
+</section>
+
+<style>
+  .group {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--muted);
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .group:first-of-type {
+    margin-top: 0;
+  }
+  article {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 22px 22px 18px;
+    margin-bottom: 20px;
+    background: var(--panel);
+  }
+  article header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .meta {
+    font-size: 12.5px;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--accent);
+    margin: 24px 0 10px;
+  }
+  .note {
+    font-size: 13.5px;
+    margin: 10px 0 0;
+  }
+  .points {
+    margin-top: 14px;
+  }
+
+  .arch {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .arch li {
+    margin: 0;
+  }
+  .tier {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: var(--bg);
+    font-size: 14px;
+  }
+  .tier strong {
+    display: block;
+    font-size: 13px;
+    color: var(--fg);
+    margin-bottom: 2px;
+  }
+  .tier span {
+    color: var(--muted);
+  }
+  .link {
+    font-size: 12px;
+    color: var(--accent);
+    padding: 6px 14px;
+  }
+
+  @media (max-width: 520px) {
+    article {
+      padding: 18px 16px 14px;
+    }
+  }
+</style>

@@ -1,0 +1,94 @@
+---
+const stack = [
+  {
+    group: 'AI & vision',
+    items: ['PyTorch', 'timm', 'scikit-learn', 'SciPy', 'OpenCV', 'Segment Anything', 'ONNX Runtime'],
+  },
+  {
+    group: 'Models',
+    items: ['EfficientNetV2', 'ViT', 'CAFormer', 'ConvNeXt', 'YuNet', 'SFace'],
+  },
+  {
+    group: 'Software',
+    items: ['Python', 'NumPy', 'pandas', 'FastAPI', 'Pydantic', 'Git', 'Google Colab', 'Kaggle GPUs'],
+  },
+  {
+    group: 'Hardware & embedded',
+    items: ['Raspberry Pi 4B', 'STM32F411', 'RS-485', 'Modbus RTU', 'I2C', 'KiCad'],
+  },
+];
+---
+
+<section id="about" aria-labelledby="about-title">
+  <h2 class="label" id="about-title">about</h2>
+  <p>
+    Third-year Electronics &amp; Telecommunications student. I work on two connected layers: machine-learning research
+    that has to survive scrutiny, and embedded systems that have to survive the real world: buses, power, timing, and the
+    failures that follow.
+  </p>
+
+  <h3 class="sub mono">How I work</h3>
+  <ul>
+    <li>
+      <strong>Measure before fixing.</strong> Rules come from measurements on real data, not hypotheses. Each one ships
+      with a test that reproduces the observed case.
+    </li>
+    <li>
+      <strong>Prove a component matters.</strong> Before training, randomize a branch and check that the output
+      changes. A check like this exposed a dead 85.8M-parameter branch.
+    </li>
+    <li>
+      <strong>Report what was measured.</strong> Fixed and logged seeds, multiple runs, bootstrap confidence
+      intervals, multiple-comparison correction, predictions written down before each run, negative results kept.
+    </li>
+    <li>
+      <strong>System before model; safety in hardware.</strong> Cut compute at the system level before buying an
+      accelerator. Software can request an action; the field node decides.
+    </li>
+  </ul>
+
+  <h3 class="sub mono">Stack</h3>
+  <p class="note muted">
+    Hardware items are the SmartGate design stack: in the design and bench-lab phase, not yet field-proven.
+  </p>
+  <div class="table-wrap">
+    <table>
+      <tbody>
+        {
+          stack.map((row) => (
+            <tr>
+              <th scope="row">{row.group}</th>
+              <td>{row.items.join(' · ')}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sub mono">Research interests</h3>
+  <p>
+    Computer vision and ML for data processing, Internet of Things, Digital Signal Processing, and Cloud-RAN / network
+    security for 5G.
+  </p>
+
+  <h3 class="sub mono">Languages</h3>
+  <p>English (IELTS 6.5) · Vietnamese · French (learning)</p>
+</section>
+
+<style>
+  .sub {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    margin: 28px 0 10px;
+  }
+  .note {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  th[scope='row'] {
+    white-space: nowrap;
+    width: 1%;
+  }
+</style>
