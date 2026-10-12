@@ -1,21 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import Glance from '../components/Glance.astro';
 import About from '../components/About.astro';
-import Projects from '../components/Projects.astro';
-import Experience from '../components/Experience.astro';
+import Life from '../components/Life.astro';
 import Contact from '../components/Contact.astro';
+import ProjectsDialog from '../components/ProjectsDialog.astro';
 ---
 
 <Layout
   title="Thái Lý An · Electronics & Telecommunications Engineering"
-  description="EE student doing computer-vision research (fish and shrimp disease classification) and embedded systems (SmartGate on Raspberry Pi 4B and STM32)."
+  description="Hi, I'm An: an Electronics & Telecommunications Engineering student in Ho Chi Minh City, into IoT, embedded AI, cacti, predatory fish and waterfalls."
 >
-  <Hero slot="side" />
-  <Glance />
+  <Hero />
   <About />
-  <Projects />
-  <Experience />
+  <Life />
   <Contact />
+  <ProjectsDialog />
 </Layout>

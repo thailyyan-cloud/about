@@ -1,10 +1,11 @@
 ---
 title: Predatory fish
-tagline: The pets that ask for a lot more than the cacti do.
+tagline: The tank, the residents, and two very calm goldfish.
 icon: fish
-order: 2
+order: 1
+cover: ../entries/fish/up-close.webp
 ---
 
-I keep predatory fish. Clean water, the right food and a tank they can't jump out of: there is a surprising amount of engineering in keeping a hunter happy.
+I keep predatory fish. Clean water, the right food, and a lid they can't jump past. There's more engineering in a fish tank than people think.
 
-Feeding time is never boring. Below: the tank, its residents, and a couple of goldfish that live a much calmer life.
+Feeding time is never boring. The goldfish live a much calmer life.

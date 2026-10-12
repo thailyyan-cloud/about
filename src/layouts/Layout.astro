@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/inter';
 import '../styles/global.css';
 
 interface Props {
@@ -10,10 +11,10 @@ const { title, description } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // Set in the repo as an Actions variable (Settings -> Variables -> GOATCOUNTER_CODE).
-// When empty, no analytics script is rendered at all.
 // Only a plausible site code is accepted; the literal template placeholder "CODE" is ignored.
 const rawCode: string = (import.meta.env.PUBLIC_GOATCOUNTER_CODE ?? '').trim();
 const goatcounter = /^[a-z0-9-]+$/i.test(rawCode) && rawCode.toUpperCase() !== 'CODE' ? rawCode : '';
+const year = new Date().getFullYear();
 ---
 
 <!doctype html>
@@ -23,7 +24,8 @@ const goatcounter = /^[a-z0-9-]+$/i.test(rawCode) && rawCode.toUpperCase() !== '
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#07080b" />
     <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
     <meta property="og:type" content="website" />
@@ -34,51 +36,60 @@ const goatcounter = /^[a-z0-9-]+$/i.test(rawCode) && rawCode.toUpperCase() !== '
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
-    <div class="shell">
-      <aside class="side">
-        <slot name="side" />
-      </aside>
-      <main id="main">
-        <slot />
-      </main>
-    </div>
+    <header class="nav">
+      <div class="container">
+        <a class="logo" href={`${base}/me/`}>Thái Lý An<span>.</span></a>
+        <nav class="nav-links" aria-label="Primary">
+          <a href={`${base}/me/#projects`} data-open-projects>Projects</a>
+          <a class="hide-sm" href={`${base}/me/#life`}>Life</a>
+          <a href={`${base}/me/cv/`}>CV</a>
+          <a class="hide-sm" href={`${base}/me/#contact`}>Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
     <footer>
-      <div class="inner">
-        Built with Astro. Static HTML and CSS, plus about 20 lines of progressive-enhancement script.
-        {
-          goatcounter && (
-            <>
-              {' '}
-              Visits are counted with <a href="https://www.goatcounter.com">GoatCounter</a> (no cookies, no personal
-              data).
-            </>
-          )
-        }
-        Source on <a href="https://github.com/thailyyan-cloud/about">GitHub</a>.
+      <div class="container">
+        <span>© {year} Thái Lý An · Ho Chi Minh City</span>
+        <span>
+          Built with Astro{goatcounter && ' · visits counted with GoatCounter, no cookies'}{' · '}<a
+            href="https://github.com/thailyyan-cloud/about">source</a
+          >
+        </span>
       </div>
     </footer>
 
     <script is:inline>
       (function () {
-        // scroll-spy: mark the nav link of the section currently in view
-        var links = Array.prototype.slice.call(document.querySelectorAll('[data-spy]'));
-        if ('IntersectionObserver' in window && links.length) {
-          var io = new IntersectionObserver(
-            function (entries) {
-              entries.forEach(function (e) {
-                if (!e.isIntersecting) return;
-                links.forEach(function (l) {
-                  (l.getAttribute('href') || '').slice(-(e.target.id.length + 1)) === '#' + e.target.id
-                    ? l.setAttribute('aria-current', 'true')
-                    : l.removeAttribute('aria-current');
-                });
-              });
-            },
-            { rootMargin: '-30% 0px -60% 0px' }
-          );
-          document.querySelectorAll('main section[id]').forEach(function (s) {
-            io.observe(s);
+        // Projects open in a dialog on the home page; elsewhere the link navigates to /me/#projects.
+        var dlg = document.getElementById('projects-dialog');
+        function open() {
+          if (dlg && !dlg.open) dlg.showModal();
+        }
+        if (dlg) {
+          document.querySelectorAll('[data-open-projects]').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+              e.preventDefault();
+              open();
+              history.replaceState(null, '', '#projects');
+            });
           });
+          dlg.addEventListener('click', function (e) {
+            if (e.target === dlg) dlg.close(); // click on the backdrop
+          });
+          dlg.addEventListener('close', function () {
+            if (location.hash === '#projects') history.replaceState(null, '', location.pathname);
+          });
+          document.querySelectorAll('[data-close-dialog]').forEach(function (b) {
+            b.addEventListener('click', function () {
+              dlg.close();
+            });
+          });
+          if (location.hash === '#projects') open();
         }
         // pointer glow: fine pointers only, and not with reduced motion
         var mq = window.matchMedia;

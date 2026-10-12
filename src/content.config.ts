@@ -6,12 +6,14 @@ import { z } from 'astro/zod';
 // The slug becomes the URL: /about/me/<slug>/
 const corners = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/corners' }),
-  schema: z.object({
-    title: z.string(),
-    tagline: z.string(), // one line shown on the card on the main page
-    icon: z.enum(['cactus', 'fish', 'travel', 'now', 'generic']).default('generic'),
-    order: z.number().default(99),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      tagline: z.string(), // one line shown on the tile on the home page
+      icon: z.enum(['cactus', 'fish', 'travel', 'now', 'generic']).default('generic'),
+      order: z.number().default(99),
+      cover: image().optional(), // tile background on the home page, e.g. ../entries/fish/up-close.webp
+    }),
 });
 
 // One file per item: src/content/entries/<corner-slug>/<name>.md

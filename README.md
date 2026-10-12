@@ -6,8 +6,8 @@ Live site: https://thailyyan-cloud.github.io/about/me/
 
 ## Stack
 
-- [Astro](https://astro.build) static site; about 20 lines of inline progressive-enhancement script (nav scroll-spy, pointer glow)
-- Plain CSS with `prefers-color-scheme` light/dark, system font stack, blueprint-style design (no external requests)
+- [Astro](https://astro.build) static site; a small inline script opens the projects dialog and drives the pointer glow
+- Dark theme, plain CSS, self-hosted Inter (Latin + Vietnamese subsets only); projects open in a native `<dialog>`
 - GitHub Actions deploys to GitHub Pages on every push to `main`
 
 ## Develop
@@ -59,10 +59,10 @@ Then re-run the deploy workflow. In GoatCounter, *User settings → Send email r
 
 ```text
 src/
-├── components/   Hero · About · Projects · Experience · Contact
+├── components/   Hero · About · Life (photo tiles) · Contact · ProjectsDialog (opens from "Projects") · Glyph
 ├── layouts/      Layout.astro (head, nav, footer)
 ├── content/      corners/*.md · entries/<corner>/*.md (hobbies, photos, "now")
-├── pages/        me.astro (/about/me/) · me/[corner].astro (/about/me/<corner>/) · index.astro (redirect)
+├── pages/        me.astro (/about/me/) · me/cv.astro (/about/me/cv/, printable) · me/[corner].astro (/about/me/<corner>/) · index.astro (redirect)
 └── styles/       global.css (design tokens, shared styles)
 .github/workflows/deploy.yml
 ```

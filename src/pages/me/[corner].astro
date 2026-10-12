@@ -2,7 +2,6 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import Hero from '../../components/Hero.astro';
 import Glyph from '../../components/Glyph.astro';
 
 export async function getStaticPaths() {
@@ -24,231 +23,249 @@ const items = (await getCollection('entries'))
       a.data.title.localeCompare(b.data.title)
   );
 const rendered = await Promise.all(items.map(async (e) => ({ e, Body: (await render(e)).Content })));
+const photos = rendered.filter(({ e }) => e.data.image);
+const notes = rendered.filter(({ e }) => !e.data.image);
 
 const others = (await getCollection('corners'))
   .filter((c) => c.id !== corner.id)
   .sort((a, b) => a.data.order - b.data.order);
-const fmt = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short', day: 'numeric' });
+const fmt = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'short' });
 const icon = corner.data.icon;
 ---
 
 <Layout title={`${corner.data.title} · Thái Lý An`} description={corner.data.tagline}>
-  <Hero slot="side" />
-
-  <section aria-labelledby="corner-title">
-    <p class="crumb mono"><a href={`${base}/me/`}>~/me</a> <span aria-hidden="true">/</span> {corner.id}</p>
-    <div class="head">
-      <span class="glyph"><Glyph name={icon} size={52} /></span>
+  <section class="container page" aria-labelledby="corner-title">
+    <a class="back" href={`${base}/me/#life`}>← Back</a>
+    <header class="head">
+      <span class="glyph"><Glyph name={icon} size={40} /></span>
       <div>
         <h1 id="corner-title">{corner.data.title}</h1>
         <p class="tagline">{corner.data.tagline}</p>
       </div>
-    </div>
-    <div class="prose intro"><Intro /></div>
+    </header>
+    <div class="intro"><Intro /></div>
 
     {
-      rendered.length === 0 ? (
-        <div class="empty">
-          <Glyph name={icon} size={72} />
-          <p class="mono">Photos coming soon.</p>
-        </div>
-      ) : (
-        <div class="grid">
-          {rendered.map(({ e, Body }) => (
-            <article class="item rise">
-              {e.data.image ? (
-                <Image
-                  src={e.data.image}
-                  alt={e.data.imageAlt ?? e.data.title}
-                  widths={[400, 800]}
-                  sizes="(min-width: 1000px) 340px, (min-width: 640px) 45vw, 100vw"
-                  class="photo"
-                />
-              ) : (
-                <div class="ph">
-                  <Glyph name={icon} size={56} />
-                  <span class="mono">photo coming soon</span>
-                </div>
-              )}
-              <div class="txt">
-                <header>
-                  <h2>{e.data.title}</h2>
-                  {e.data.status && <span class="status warm">{e.data.status}</span>}
-                </header>
-                {e.data.date && <p class="date mono">{fmt.format(e.data.date)}</p>}
-                <div class="prose">
+      photos.length > 0 && (
+        <div class="gallery">
+          {photos.map(({ e, Body }) => (
+            <figure class="shot rise">
+              <Image
+                src={e.data.image!}
+                alt={e.data.imageAlt ?? e.data.title}
+                widths={[480, 960]}
+                sizes="(min-width: 900px) 500px, 100vw"
+              />
+              <figcaption>
+                <span class="t">{e.data.title}</span>
+                {e.data.date && <span class="d">{fmt.format(e.data.date)}</span>}
+                <span class="b">
                   <Body />
-                </div>
-                {e.data.tags.length > 0 && (
-                  <ul class="tags">
-                    {e.data.tags.map((t) => (
-                      <li>{t}</li>
-                    ))}
-                  </ul>
-                )}
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      notes.length > 0 && (
+        <div class="notes">
+          {notes.map(({ e, Body }) => (
+            <article class="note rise">
+              <div class="top">
+                <h2>{e.data.title}</h2>
+                {e.data.status && <span class="status">{e.data.status}</span>}
+              </div>
+              <div class="b">
+                <Body />
               </div>
             </article>
           ))}
         </div>
       )
     }
-  </section>
 
-  <section aria-labelledby="more-title">
-    <h2 class="label" id="more-title"><span class="no">··</span> more corners</h2>
-    <p class="more">
+    {
+      items.length === 0 && (
+        <div class="empty">
+          <Glyph name={icon} size={64} />
+          <p>Photos coming soon.</p>
+        </div>
+      )
+    }
+
+    <nav class="more" aria-label="Other pages">
       {
         others.map((c) => (
           <a href={`${base}/me/${c.id}/`}>
-            <Glyph name={c.data.icon} size={20} />
-            {c.data.title}
+            <Glyph name={c.data.icon} size={18} /> {c.data.title}
           </a>
         ))
       }
-      <a href={`${base}/me/`}>← back to ~/me</a>
-    </p>
+    </nav>
   </section>
 </Layout>
 
 <style>
-  .crumb {
-    font-size: 12.5px;
-    color: var(--muted);
-    margin-bottom: 18px;
+  .page {
+    padding-top: 40px;
   }
-  .crumb a {
-    color: var(--accent);
+  .back {
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .back:hover {
+    color: var(--fg);
   }
   .head {
     display: flex;
-    gap: 16px;
+    gap: 18px;
     align-items: center;
-    margin-bottom: 18px;
+    margin: 28px 0 18px;
   }
   .glyph {
     flex: none;
     display: grid;
     place-items: center;
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
     color: var(--accent);
-    border: 1px dashed var(--line);
-    border-radius: 10px;
-    background: var(--panel);
+    background: var(--card);
+    border: 1px solid var(--line);
   }
   h1 {
-    font-size: clamp(1.8rem, 5vw, 2.4rem);
-    letter-spacing: -0.02em;
+    font-size: clamp(2.2rem, 6vw, 3.6rem);
+    letter-spacing: -0.04em;
   }
   .tagline {
+    margin: 6px 0 0;
     color: var(--muted);
-    margin: 4px 0 0;
   }
   .intro {
-    max-width: 62ch;
-    font-size: 1.05rem;
+    max-width: 60ch;
+    font-size: 1.08rem;
+    color: var(--muted);
   }
-  .prose :global(p:last-child) {
-    margin-bottom: 0;
+  .intro :global(a) {
+    color: var(--accent);
   }
 
-  .grid {
+  /* a plain grid keeps the reading order (columns would reorder top-to-bottom) */
+  .gallery {
+    margin-top: 36px;
     display: grid;
-    grid-template-columns: 1fr;
     gap: 16px;
-    margin-top: 26px;
   }
-  @media (min-width: 640px) {
-    .grid {
+  @media (min-width: 680px) {
+    .gallery {
       grid-template-columns: 1fr 1fr;
     }
   }
-  .item {
-    border: 1px solid var(--line);
-    border-radius: 10px;
+  .shot {
+    margin: 0;
+    border-radius: var(--radius);
     overflow: hidden;
-    background: var(--panel);
-    display: flex;
-    flex-direction: column;
-    transition: border-color 0.15s;
+    border: 1px solid var(--line);
+    background: var(--card);
   }
-  .item:hover {
-    border-color: var(--accent);
-  }
-  .item :global(.photo) {
+  .shot :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
-  .ph {
-    aspect-ratio: 4 / 3;
-    display: grid;
-    place-items: center;
-    align-content: center;
-    gap: 10px;
-    color: var(--accent);
-    background: linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 16px 16px,
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 16px 16px, var(--bg);
-    border-bottom: 1px dashed var(--line);
+  .shot:hover :global(img) {
+    transform: scale(1.03);
   }
-  .ph span {
-    font-size: 11px;
+  figcaption {
+    padding: 12px 16px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 10px;
+    align-items: baseline;
+  }
+  .t {
+    font-weight: 600;
+  }
+  .d {
+    font-size: 12.5px;
+    color: var(--dim);
+  }
+  .b {
+    flex-basis: 100%;
     color: var(--muted);
+    font-size: 14px;
   }
-  .txt {
-    padding: 14px 16px 16px;
+  .b :global(p) {
+    margin: 4px 0 0;
   }
-  .txt header {
+
+  .notes {
+    margin-top: 32px;
+    display: grid;
+    gap: 14px;
+  }
+  @media (min-width: 680px) {
+    .notes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .note {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    background: var(--card);
+  }
+  .note .top {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 4px;
+    align-items: center;
+    margin-bottom: 8px;
   }
-  .txt h2 {
-    font-size: 1.05rem;
-  }
-  .date {
-    font-size: 11.5px;
-    color: var(--muted);
-    margin: 0 0 8px;
-  }
-  .txt .prose {
-    font-size: 14.5px;
-    color: var(--muted);
+  .note h2 {
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
   }
 
   .empty {
-    margin-top: 26px;
-    border: 1px dashed var(--line);
-    border-radius: 10px;
-    padding: 40px 20px;
+    margin-top: 36px;
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius);
+    padding: 56px 20px;
     display: grid;
     place-items: center;
     gap: 12px;
     color: var(--accent);
-    background: var(--panel);
   }
   .empty p {
     margin: 0;
-    font-size: 13px;
     color: var(--muted);
   }
 
   .more {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 22px;
-    font-size: 14px;
+    gap: 10px;
+    margin-top: 56px;
   }
   .more a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    text-decoration: none;
+    padding: 9px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .more a:hover {
+    color: var(--fg);
+    border-color: var(--line-strong);
   }
   .more :global(svg) {
     color: var(--accent);

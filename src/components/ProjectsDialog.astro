@@ -1,0 +1,266 @@
+---
+// Projects live in a dialog so the home page stays about the person.
+// Each card leads with one plain-language line; the technical detail sits behind "Details".
+// All figures come from the projects' own result files (THESIS_HANDOVER.md, TRANG_THAI_DU_AN.md, selftest output).
+---
+
+<dialog id="projects-dialog" aria-labelledby="projects-title">
+  <div class="sheet">
+    <header class="head">
+      <div>
+        <p class="eyebrow">Projects</p>
+        <h2 id="projects-title">Things I've built and studied.</h2>
+      </div>
+      <button class="close" type="button" data-close-dialog aria-label="Close projects">✕</button>
+    </header>
+
+    <div class="list">
+      <article class="proj">
+        <div class="top"><h3>AquaVision-X</h3><span class="status">research · results frozen</span></div>
+        <p>
+          An AI that recognises fish diseases from photos. I caught it cheating: it was reading the background, not the
+          fish. Then I cut that habit roughly in half without losing accuracy.
+        </p>
+        <ul class="tags"><li>Python</li><li>PyTorch</li><li>timm</li><li>OpenCV</li><li>Segment Anything</li></ul>
+        <details>
+          <summary>Details</summary>
+          <div class="more">
+            <p>7 classes, ~2,400 images, EfficientNetV2-S + ViT-B/16 (113.5M parameters).</p>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Step</th><th>Test</th><th>Result</th></tr></thead>
+                <tbody>
+                  <tr><td>Correlation</td><td>Fish erased, background only</td><td>macro-F1 0.7049 vs 0.1429 chance (full image 0.9583)</td></tr>
+                  <tr><td>Causation</td><td>Background swapped from another class (n = 489)</td><td>Predicts the background's class 23.1 % vs 16.7 % chance (p = 1.3e-4)</td></tr>
+                  <tr><td>Remedy</td><td>Randomise the background in training</td><td>Dependence −48.9 %; clean macro-F1 0.9443 → 0.9551</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul>
+              <li>224 px input is enough (equivalence test passed), 2.2× less compute than 384 px.</li>
+              <li>A fusion bug had silently killed an 85.8M-parameter branch; a quick check now catches it.</li>
+            </ul>
+            <p class="note">Row 1 used 384 px / 10 epochs, rows 2–3 used 224 px / 20 epochs.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="proj">
+        <div class="top"><h3>ShrimpVision</h3><span class="status warm">research · in progress</span></div>
+        <p>
+          Which AI model really diagnoses shrimp diseases best? I put seven of them through exactly the same tests to find
+          out, and where the winner actually wins.
+        </p>
+        <ul class="tags"><li>PyTorch</li><li>timm</li><li>scikit-learn</li><li>SciPy</li><li>Kaggle</li></ul>
+        <details>
+          <summary>Details</summary>
+          <div class="more">
+            <ul>
+              <li>Merged public datasets: 2,149 images, 5 classes.</li>
+              <li>Multiple seeds, bootstrap confidence intervals, multiple-comparison correction.</li>
+              <li>
+                The hybrid convolution + attention model (CAFormer-S18) leads on the hardest class, WSSV + Black Gill
+                co-infection: the only per-class gap that survives Bonferroni (p = 0.0077, 3 seeds).
+              </li>
+              <li>Predictions written down before each run; 60 test scripts guard the pipeline.</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <article class="proj">
+        <div class="top"><h3>SmartGate</h3><span class="status warm">thesis · in design</span></div>
+        <p>
+          My thesis: a smart gate that recognises faces and licence plates, and keeps working when the internet is down.
+          The build is planned for 2028.
+        </p>
+        <ul class="tags"><li>Raspberry Pi 4B</li><li>STM32</li><li>RS-485 / Modbus RTU</li><li>OpenCV</li><li>KiCad</li></ul>
+        <details>
+          <summary>Details</summary>
+          <div class="more">
+            <ul>
+              <li>Three tiers: a Raspberry Pi 4B for vision and rules, two STM32 nodes for real-time I/O, 12 V DIN-rail power.</li>
+              <li>Radar and an inductive loop wake the vision pipeline, so a CPU-only Pi is enough.</li>
+              <li>No LLM in the access decision. Safety (E-stop, photo-eye, fail-safe) lives in firmware, not Python.</li>
+              <li>Done so far: technical proposal, bill of materials (14,998,500 VND), Modbus register map v0.2.</li>
+              <li>16 KPIs are written down as targets. Nothing is measured yet.</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <article class="proj">
+        <div class="top"><h3>SkyTrack</h3><span class="status">hackathon · 2026</span></div>
+        <p>
+          A drone mission that scans crop fields from 60 m, takes a closer look from 18 m, and always keeps enough battery
+          to get home.
+        </p>
+        <ul class="tags"><li>Python</li><li>NumPy</li><li>Path planning</li></ul>
+        <details>
+          <summary>Details</summary>
+          <div class="more">
+            <ul>
+              <li>Stressed crops found with the Excess Green index and adaptive median/MAD thresholds. No deep learning, no GPU.</li>
+              <li>Route by nearest neighbour + 2-opt; a guard checks the battery before every leg.</li>
+              <li>Offline self-test on synthetic fields: precision 1.00, recall 0.77; 56 of 57 checks pass, one edge case open.</li>
+            </ul>
+          </div>
+        </details>
+      </article>
+
+      <article class="proj">
+        <div class="top"><h3>Robot Solving Cube</h3><span class="status">Mar 2025</span></div>
+        <p>A cube-solving robot, built together with electrical-electronics students from EPHEC University in Belgium.</p>
+        <ul class="tags"><li>Robotics</li><li>Teamwork</li></ul>
+      </article>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  dialog {
+    width: min(860px, 100vw);
+    max-width: 100vw;
+    max-height: 100dvh;
+    margin: auto;
+    padding: 0;
+    border: 1px solid var(--line-strong);
+    border-radius: 24px;
+    background: var(--bg-elev);
+    color: var(--fg);
+    box-shadow: 0 40px 120px -20px rgba(0, 0, 0, 0.8);
+  }
+  dialog::backdrop {
+    background: rgba(3, 4, 6, 0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  @media (max-width: 640px) {
+    dialog {
+      height: 100dvh;
+      border-radius: 0;
+      border: 0;
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    dialog[open] {
+      animation: pop 0.22s cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+    @keyframes pop {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+    }
+  }
+  .sheet {
+    padding: 28px clamp(20px, 4vw, 40px) 36px;
+  }
+  .head {
+    position: sticky;
+    top: -28px;
+    z-index: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 28px 0 18px;
+    margin-top: -28px;
+    background: var(--bg-elev);
+    border-bottom: 1px solid var(--line);
+  }
+  .head h2 {
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  }
+  .head .eyebrow {
+    margin-bottom: 8px;
+  }
+  .close {
+    flex: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--fg);
+    font-size: 16px;
+    cursor: pointer;
+  }
+  .close:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .list {
+    display: grid;
+    gap: 14px;
+    margin-top: 22px;
+  }
+  .proj {
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 20px 22px;
+    background: var(--card);
+    transition: border-color 0.2s;
+  }
+  .proj:hover {
+    border-color: var(--line-strong);
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+  .proj h3 {
+    font-size: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .proj > p {
+    color: var(--muted);
+    margin: 0;
+  }
+  details {
+    margin-top: 14px;
+  }
+  summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13.5px;
+    color: var(--accent);
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  summary::after {
+    content: '↓';
+    transition: transform 0.2s;
+  }
+  details[open] summary::after {
+    transform: rotate(180deg);
+  }
+  .more {
+    margin-top: 12px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .more ul {
+    padding-left: 1.1em;
+    margin: 10px 0 0;
+  }
+  .more li {
+    margin-bottom: 6px;
+  }
+  .more .table-wrap {
+    margin: 10px 0;
+  }
+  .note {
+    font-size: 12.5px;
+    color: var(--dim);
+    margin: 8px 0 0;
+  }
+</style>

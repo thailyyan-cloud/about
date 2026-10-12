@@ -1,8 +1,8 @@
 ---
-title: Now
-tagline: What I'm working towards at the moment.
+title: Right now
+tagline: What I'm working towards.
 icon: now
 order: 4
 ---
 
-The things I'm actively pursuing right now, inside and outside of university. This list changes as I go.
+What I'm spending my time on at the moment. It changes as I go.

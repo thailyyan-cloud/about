@@ -1,10 +1,8 @@
 ---
 title: Cacti
-tagline: Plants that ask for sun, gritty soil and to be left alone.
+tagline: They forgive almost anything. Photos soon.
 icon: cactus
-order: 1
+order: 3
 ---
 
-I grow cacti. They are the opposite of my research: no deadlines, no GPU queue, just sun, fast-draining soil and the discipline to *not* water them.
-
-This page is where I keep track of the collection as it grows.
+I grow cacti. Sun, gritty soil, and the discipline to not water them. Photos of the collection are coming.

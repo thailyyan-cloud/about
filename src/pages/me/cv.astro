@@ -1,0 +1,277 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// Kept in sync with the CV PDF, minus the parts the owner asked to leave out (business, outdated year).
+const research = [
+  {
+    title: 'AquaVision-X · fish disease classification',
+    when: '2026 · student research, results frozen',
+    points: [
+      '7 classes, ~2,400 images, EfficientNetV2-S + ViT-B/16.',
+      'Found and measured a background shortcut; background randomisation cut it by 48.9 % with no accuracy loss (macro-F1 0.9443 → 0.9551).',
+    ],
+  },
+  {
+    title: 'ShrimpVision · shrimp disease diagnosis',
+    when: '2026 – present · student research',
+    points: ['Seven architectures compared under one protocol, with multiple seeds and bootstrap confidence intervals.'],
+  },
+];
+
+const projects = [
+  {
+    title: 'SmartGate · edge-AI access control (thesis)',
+    when: 'In design · build planned for 2028',
+    points: ['Raspberry Pi 4B for vision, STM32 nodes for real-time I/O over RS-485 / Modbus RTU, works offline.'],
+  },
+  {
+    title: 'SkyTrack · crop-survey drone mission',
+    when: '2026 · hackathon prototype',
+    points: ['Two-tier survey with a battery guard before every leg; 56 of 57 offline checks pass.'],
+  },
+];
+
+const experience = [
+  {
+    title: 'Robot Solving Cube · with EPHEC University, Belgium',
+    when: 'Mar 2025',
+    points: ['Built a cube-solving robot with international electrical-electronics students.'],
+  },
+  {
+    title: 'Drone prototypes · Electrical-Electronics Dept.',
+    when: 'Group project',
+    points: ['Designed, assembled and programmed remote-controlled drone models.'],
+  },
+];
+
+const skills = [
+  ['AI & vision', 'Python, PyTorch, timm, scikit-learn, SciPy, OpenCV'],
+  ['Embedded', 'Raspberry Pi, STM32, RS-485 / Modbus RTU, I2C, KiCad (learning)'],
+  ['Tools', 'Git, GitHub Actions, FastAPI, Astro, Google Colab, Kaggle'],
+  ['Languages', 'Vietnamese, English (IELTS 6.5), French (learning)'],
+];
+---
+
+<Layout title="CV · Thái Lý An" description="CV of Thái Lý An, Electronics & Telecommunications Engineering student at IU, VNU-HCM.">
+  <section class="container cv" aria-labelledby="cv-title">
+    <div class="bar no-print">
+      <a href={`${base}/me/`} class="back">← Back</a>
+      <button class="btn" type="button" onclick="window.print()">Save as PDF</button>
+    </div>
+
+    <header class="cv-head">
+      <div>
+        <h1 id="cv-title">Thái Lý An</h1>
+        <p class="role">Electronics &amp; Telecommunications Engineering student · 3rd year</p>
+      </div>
+      <p class="contact">
+        <a href="mailto:thailyyan@gmail.com">thailyyan@gmail.com</a>
+        <span>Ho Chi Minh City, Vietnam</span>
+        <a href="https://thailyyan-cloud.github.io/about/me/">thailyyan-cloud.github.io/about/me</a>
+        <a href="https://github.com/thailyyan-cloud">github.com/thailyyan-cloud</a>
+      </p>
+    </header>
+
+    <div class="block">
+      <h2>Profile</h2>
+      <p>
+        Engineering student focused on IoT, embedded systems and on-device AI, with the long-term goal of becoming an
+        aircraft maintenance engineer. Careful with numbers: I measure first and report what I measured.
+      </p>
+    </div>
+
+    <div class="block">
+      <h2>Education</h2>
+      <div>
+        <div class="item">
+          <div class="row"><h3>International University, VNU-HCM</h3><span>In progress</span></div>
+          <p>Electronics &amp; Telecommunications Engineering, 3rd year.</p>
+          <p>Merit-based scholarship, Semester II, 2024–2025.</p>
+        </div>
+      </div>
+    </div>
+
+    {
+      [
+        ['Research', research],
+        ['Projects', projects],
+        ['Experience', experience],
+      ].map(([heading, list]) => (
+        <div class="block">
+          <h2>{heading as string}</h2>
+          <div>
+            {(list as typeof research).map((r) => (
+              <div class="item">
+                <div class="row">
+                  <h3>{r.title}</h3>
+                  <span>{r.when}</span>
+                </div>
+                <ul>
+                  {r.points.map((p) => (
+                    <li>{p}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+
+    <div class="block">
+      <h2>Skills</h2>
+      <dl class="skills">
+        {
+          skills.map(([k, v]) => (
+            <div>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+
+    <div class="block">
+      <h2>Interests</h2>
+      <p>Cacti, predatory fish, travel (preferably near a waterfall).</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .cv {
+    max-width: 860px;
+    padding-top: 40px;
+  }
+  .bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 36px;
+  }
+  .back {
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .back:hover {
+    color: var(--fg);
+  }
+  .cv-head {
+    display: grid;
+    gap: 14px;
+    padding-bottom: 26px;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 760px) {
+    .cv-head {
+      grid-template-columns: 1fr auto;
+      align-items: end;
+    }
+  }
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.2rem);
+  }
+  .role {
+    color: var(--accent);
+    margin: 10px 0 0;
+  }
+  .contact {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  @media (min-width: 760px) {
+    .contact {
+      text-align: right;
+    }
+  }
+  .contact a:hover {
+    color: var(--fg);
+  }
+  .block {
+    display: grid;
+    gap: 8px 32px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (min-width: 760px) {
+    .block {
+      grid-template-columns: 150px 1fr;
+    }
+  }
+  .block h2 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding-top: 4px;
+  }
+  .block > p,
+  .item p {
+    color: var(--muted);
+    margin: 0 0 6px;
+  }
+  .item + .item {
+    margin-top: 18px;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+  .row h3 {
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+  }
+  .row span {
+    font-size: 13px;
+    color: var(--dim);
+  }
+  .item ul {
+    margin: 0;
+    padding-left: 1.1em;
+    color: var(--muted);
+  }
+  .item li {
+    margin-bottom: 4px;
+  }
+  .skills {
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .skills div {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 12px;
+  }
+  .skills dt {
+    color: var(--fg);
+    font-size: 14px;
+  }
+  .skills dd {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  @media print {
+    .cv {
+      padding-top: 0;
+      max-width: none;
+    }
+    .block {
+      padding: 12px 0;
+      break-inside: avoid;
+    }
+  }
+</style>

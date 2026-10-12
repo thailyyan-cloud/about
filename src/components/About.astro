@@ -1,103 +1,43 @@
 ---
-import Corners from './Corners.astro';
-
-const stack = [
-  {
-    group: 'AI & vision',
-    items: ['PyTorch', 'timm', 'scikit-learn', 'SciPy', 'OpenCV', 'Segment Anything', 'ONNX Runtime'],
-  },
-  {
-    group: 'Models',
-    items: ['EfficientNetV2', 'ViT', 'CAFormer', 'ConvNeXt', 'YuNet', 'SFace'],
-  },
-  {
-    group: 'Software',
-    items: ['Python', 'NumPy', 'pandas', 'FastAPI', 'Pydantic', 'Git', 'Google Colab', 'Kaggle GPUs'],
-  },
-  {
-    group: 'Hardware & embedded',
-    items: ['Raspberry Pi 4B', 'STM32F411', 'RS-485', 'Modbus RTU', 'I2C', 'KiCad'],
-  },
-];
 ---
 
-<section id="about" aria-labelledby="about-title">
-  <h2 class="label" id="about-title"><span class="no">01</span> about</h2>
-  <p>
-    Aviation has always been the pull. The long-term goal is to become an aircraft maintenance engineer, and the road
-    there runs through IoT and embedded systems: a modern aircraft is full of them, and keeping one healthy is more and
-    more a sensors-and-data problem. So for now it's small boards, tight power budgets, and models that have to earn
-    their place in memory.
-  </p>
-  <p>
-    Outside the lab my free time goes to two very different pets: a growing collection of cacti that ask for almost
-    nothing, and predatory fish that ask for a lot more. When I can get away I travel, and somehow I always end up near
-    water: a waterfall, a river, the sea. And I'm learning French, slowly.
-  </p>
-
-  <h3 class="sub mono">Outside the lab</h3>
-  <Corners />
-
-  <h3 class="sub mono">How I work</h3>
-  <p>
-    If a model scores suspiciously well, I go looking for the shortcut before I celebrate. That habit is how I
-    caught AquaVision-X reading the background instead of the fish. Before each run I write down what I
-    expect, I log every seed, and I keep the runs that went badly, so anyone can check my numbers.
-  </p>
-  <p>
-    I also try to prove a part actually does something before I trust it: once, randomizing a whole 85.8M-parameter
-    branch changed nothing, which told me it had been dead all along. On the hardware side I'd rather solve a problem at
-    the system level than buy a faster chip, and safety belongs in firmware, not in Python.
-  </p>
-
-  <h3 class="sub mono">Stack</h3>
-  <p class="note muted">
-    Hardware items are the SmartGate design stack: in the design and bench-lab phase, not yet field-proven.
-  </p>
-  <div class="table-wrap">
-    <table>
-      <tbody>
-        {
-          stack.map((row) => (
-            <tr>
-              <th scope="row">{row.group}</th>
-              <td>{row.items.join(' · ')}</td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+<section id="about" class="container" aria-labelledby="about-title">
+  <p class="eyebrow">About me</p>
+  <h2 id="about-title" class="big rise">
+    I'm curious, a little stubborn, and happiest when I finally get <span>why</span> something works.
+  </h2>
+  <div class="cols rise">
+    <p>
+      Off the clock I grow cacti, which forgive almost anything, and keep predatory fish, which forgive nothing. Give me
+      a free weekend and I'll find a waterfall.
+    </p>
+    <p>
+      Right now I'm learning IoT and embedded systems. The long-term plan is aircraft maintenance. And French, slowly.
+    </p>
   </div>
-
-  <p class="meta muted">
-    <span class="mono">Interests</span> computer vision · IoT · signal processing · 5G networks<br />
-    <span class="mono">Languages</span> Vietnamese · English (IELTS 6.5) · French (getting there)
-  </p>
 </section>
 
 <style>
-  .sub {
-    font-size: 13px;
-    color: var(--muted);
-    font-weight: 400;
-    margin: 28px 0 10px;
+  .big {
+    font-size: clamp(1.7rem, 4.2vw, 2.8rem);
+    line-height: 1.2;
+    font-weight: 600;
+    max-width: 24ch;
   }
-  .note {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-  .meta {
-    font-size: 14px;
-    margin-top: 18px;
-    line-height: 1.9;
-  }
-  .meta .mono {
-    font-size: 11.5px;
+  .big span {
     color: var(--accent);
-    margin-right: 8px;
   }
-  th[scope='row'] {
-    white-space: nowrap;
-    width: 1%;
+  .cols {
+    display: grid;
+    gap: 8px 40px;
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 1.08rem;
+    max-width: 860px;
+  }
+  @media (min-width: 760px) {
+    .cols {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 </style>

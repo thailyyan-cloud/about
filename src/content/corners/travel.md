@@ -1,8 +1,9 @@
 ---
 title: Travel
-tagline: Somehow I always end up near water.
+tagline: Singapore, Langkawi, Dambri. Always somewhere near water.
 icon: travel
-order: 3
+order: 2
+cover: ../entries/travel/dambri-falls.webp
 ---
 
-Places I've been, and the waterfalls, rivers and coastlines I found there. More photos on [Instagram](https://www.instagram.com/lyanz_/).
+A few places I've been. I don't plan it this way, but I always end up near a waterfall, a river or the sea. More on [Instagram](https://www.instagram.com/lyanz_/).
