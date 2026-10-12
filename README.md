@@ -33,6 +33,12 @@ The "Outside the lab" corners live in plain Markdown files. Every push to `main`
 npm run photo -- cacti ~/Desktop/IMG_0412.jpg "Golden barrel" "A golden barrel cactus in a clay pot"
 ```
 
+Optional cropping: `--aspect=4:3` crops to the card ratio while keeping the most salient region, and `--crop=L,T,W,H` cuts a pixel box first (for example to remove a stranger from a travel photo):
+
+```bash
+npm run photo -- travel ~/Desktop/sg.jpg "Marina Bay at night" --crop=0,300,3000,2000 --aspect=4:3
+```
+
 This creates `src/content/entries/cacti/<date>-golden-barrel.webp` and `.md`. Write a few lines in the `.md` if you like, then commit and push. iPhone `.heic` photos are converted automatically.
 
 **Add an item without a photo:** create the `.md` by hand (see `src/content/entries/now/*.md`). Fields: `title` (required), `date`, `image`, `imageAlt`, `status`, `order`, `tags`.
