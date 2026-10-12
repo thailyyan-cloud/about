@@ -7,6 +7,9 @@
 // Options:
 //   --crop=L,T,W,H  cut out a box first (pixels, measured on the upright photo), e.g. to remove a stranger
 //   --aspect=4:3    then crop to this ratio, keeping the most salient region (sharp "attention" strategy)
+//   --date=YYYY-MM-DD | --date=none   date shown on the card (default: today; "none" hides it)
+//   --order=N       manual position on the page (lower first)
+//   --tags=a,b      tags shown under the text
 //
 // What it does:
 //   1. auto-rotates the photo, applies the optional crops, resizes to at most 1600 px and saves it as WebP
@@ -59,7 +62,18 @@ if (/^\.hei[cf]$/i.test(extname(input))) {
   input = tmp;
 }
 
-const date = new Date().toISOString().slice(0, 10);
+const date =
+  flags.date === undefined ? new Date().toISOString().slice(0, 10) : flags.date === 'none' ? null : flags.date;
+if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+  console.error('--date must be YYYY-MM-DD or "none"');
+  process.exit(1);
+}
+const order = flags.order !== undefined ? Number(flags.order) : null;
+if (order !== null && !Number.isFinite(order)) {
+  console.error('--order must be a number');
+  process.exit(1);
+}
+const tags = flags.tags ? flags.tags.split(',').map((t) => t.trim()).filter(Boolean) : [];
 const slug =
   title
     .normalize('NFD')
@@ -68,7 +82,7 @@ const slug =
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '') || 'photo';
-const name = `${date}-${slug}`;
+const name = date ? `${date}-${slug}` : slug;
 const dir = join(root, 'src/content/entries', corner);
 const imgPath = join(dir, `${name}.webp`);
 const mdPath = join(dir, `${name}.md`);
@@ -120,10 +134,9 @@ writeFileSync(
   mdPath,
   `---
 title: ${yaml(title)}
-date: ${date}
-image: ./${name}.webp
+${date ? `date: ${date}\n` : ''}${order !== null ? `order: ${order}\n` : ''}image: ./${name}.webp
 imageAlt: ${yaml(alt ?? title)}
-tags: []
+tags: ${JSON.stringify(tags)}
 ---
 
 <!-- Write a few lines about this photo here (optional). -->
