@@ -35,21 +35,21 @@ const icon = corner.data.icon;
 
 <Layout title={`${corner.data.title} · Thái Lý An`} description={corner.data.tagline}>
   <section class="container page" aria-labelledby="corner-title">
-    <a class="back" href={`${base}/me/#life`}>← Back</a>
+    <a class="back enter" style="--i:0" href={`${base}/me/#life`}>← Back</a>
     <header class="head">
-      <span class="glyph"><Glyph name={icon} size={40} /></span>
-      <div>
+      <span class="glyph enter" style="--i:1"><Glyph name={icon} size={40} /></span>
+      <div class="enter" style="--i:2">
         <h1 id="corner-title">{corner.data.title}</h1>
         <p class="tagline">{corner.data.tagline}</p>
       </div>
     </header>
-    <div class="intro"><Intro /></div>
+    <div class="intro enter" style="--i:3"><Intro /></div>
 
     {
       photos.length > 0 && (
         <div class="gallery">
-          {photos.map(({ e, Body }) => (
-            <figure class="shot rise">
+          {photos.map(({ e, Body }, i) => (
+            <figure class="shot rise" style={`--d:${(i % 2) * 90}ms`}>
               <Image
                 src={e.data.image!}
                 alt={e.data.imageAlt ?? e.data.title}
@@ -72,8 +72,8 @@ const icon = corner.data.icon;
     {
       notes.length > 0 && (
         <div class="notes">
-          {notes.map(({ e, Body }) => (
-            <article class="note rise">
+          {notes.map(({ e, Body }, i) => (
+            <article class="note rise" style={`--d:${(i % 2) * 90}ms`}>
               <div class="top">
                 <h2>{e.data.title}</h2>
                 {e.data.status && <span class="status">{e.data.status}</span>}

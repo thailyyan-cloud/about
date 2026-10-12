@@ -1,61 +1,94 @@
 ---
 import portrait from '../assets/portrait.webp';
+import CircuitBg from './CircuitBg.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+// The basics first, like the first page of a datasheet.
+const specs = [
+  ['Major', 'Electronics & Telecommunications Engineering'],
+  ['School', 'International University, VNU-HCM · 3rd year'],
+  ['Based in', 'Ho Chi Minh City, Vietnam'],
+  ['Focus', 'IoT · Embedded systems · Embedded AI'],
+  ['Interests', 'Cacti · Predatory fish · Travel'],
+  ['Goal', 'Aircraft maintenance engineer'],
+];
 ---
 
-<section class="hero container" aria-labelledby="hero-title">
-  <div class="text">
-    <p class="pill"><span class="dot"></span> Electronics &amp; Telecommunications Engineering · IU, VNU-HCM</p>
-    <h1 id="hero-title">Hi, I'm <span class="grad">An.</span></h1>
-    <p class="lead">
-      Third-year engineering student in Ho Chi Minh City. I build small devices that can see, and one day I want to
-      keep real aircraft flying.
-    </p>
-    <div class="cta">
-      <a class="btn primary" href={`${base}/me/#projects`} data-open-projects>See my projects <span class="arrow">→</span></a>
-      <a class="btn" href={`${base}/me/cv/`}>View my CV</a>
-    </div>
-    <p class="socials">
-      <a href="mailto:thailyyan@gmail.com">Email</a>
-      <a href="https://www.instagram.com/lyanz_/">Instagram</a>
-      <a href="https://github.com/thailyyan-cloud">GitHub</a>
-    </p>
-  </div>
+<section id="about" class="hero-wrap" aria-labelledby="hero-title">
+  <CircuitBg />
+  <div class="hero container">
+    <div class="text">
+      <p class="eyebrow enter" style="--i:0">About me</p>
+      <h1 id="hero-title" class="enter" style="--i:1">Hi, I'm <span class="grad">An.</span></h1>
 
-  <div class="photo">
-    <div class="frame">
-      <img
-        src={portrait.src}
-        width="640"
-        height="960"
-        alt="Portrait of Thái Lý An in a white shirt"
-        fetchpriority="high"
-        decoding="async"
-      />
+      <dl class="specs">
+        {
+          specs.map(([k, v], i) => (
+            <div class="enter" style={`--i:${i + 2}`}>
+              <dt>{k}</dt>
+              <dd>{v}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="intro enter" style={`--i:${specs.length + 2}`}>
+        I'm curious, a little stubborn, and happiest when I finally get why something works. Off the clock I grow cacti,
+        keep fish that bite, and look for waterfalls.
+      </p>
+
+      <div class="cta enter" style={`--i:${specs.length + 3}`}>
+        <a class="btn primary" href={`${base}/me/#projects`} data-open-projects>See my projects <span class="arrow">→</span></a>
+        <a class="btn" href={`${base}/me/cv/`}>View my CV</a>
+      </div>
     </div>
-    <p class="badge"><span class="dot"></span> Currently: IoT &amp; embedded AI</p>
+
+    <div class="photo enter" style="--i:1">
+      <div class="frame">
+        <img
+          src={portrait.src}
+          width="640"
+          height="960"
+          alt="Portrait of Thái Lý An in a white shirt"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <p class="links">
+        <a href="mailto:thailyyan@gmail.com">Email</a>
+        <a href="https://www.instagram.com/lyanz_/">Instagram</a>
+        <a href="https://github.com/thailyyan-cloud">GitHub</a>
+      </p>
+    </div>
   </div>
 </section>
 
 <style>
+  .hero-wrap {
+    position: relative;
+    isolation: isolate;
+    padding-top: 0;
+    overflow: hidden; /* the circuit art is wider than the viewport on purpose */
+  }
   .hero {
     display: grid;
-    gap: 20px;
+    gap: 28px;
     align-items: center;
     padding-top: 40px;
+    padding-bottom: 24px;
   }
   @media (min-width: 900px) {
     .hero {
-      grid-template-columns: 1.25fr 0.75fr;
-      padding-top: 112px;
+      grid-template-columns: 1.3fr 0.7fr;
       gap: 64px;
+      padding-top: 96px;
     }
   }
   h1 {
-    font-size: clamp(3rem, 9vw, 5.6rem);
-    margin: 22px 0 18px;
+    font-size: clamp(2.8rem, 8vw, 4.8rem);
     letter-spacing: -0.045em;
+    margin: 0 0 26px;
   }
   .grad {
     background: linear-gradient(100deg, var(--accent), var(--accent-2));
@@ -63,46 +96,58 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     background-clip: text;
     color: transparent;
   }
-  .lead {
-    font-size: clamp(1.1rem, 2.2vw, 1.3rem);
-    line-height: 1.55;
+
+  /* the datasheet */
+  .specs {
+    margin: 0;
+    border-top: 1px solid var(--line);
+    max-width: 560px;
+  }
+  .specs div {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .specs dt {
+    font: 500 11.5px var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 3px;
+  }
+  .specs dd {
+    margin: 0;
+    color: var(--fg);
+    font-size: 15.5px;
+  }
+
+  .intro {
+    margin: 22px 0 28px;
+    max-width: 52ch;
+    font-size: 14.5px;
+    line-height: 1.65;
     color: var(--muted);
-    max-width: 34ch;
-    margin-bottom: 30px;
   }
   .cta {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
   }
-  .socials {
-    display: flex;
-    gap: 20px;
-    margin-top: 26px;
-    font-size: 14px;
-    color: var(--dim);
-  }
-  .socials a:hover {
-    color: var(--fg);
-  }
 
   .photo {
-    position: relative;
-    justify-self: start;
-    width: 180px;
     order: -1;
-    margin-bottom: 12px;
+    width: 168px;
   }
   @media (min-width: 900px) {
     .photo {
-      justify-self: center;
-      width: 320px;
       order: 0;
-      margin-bottom: 0;
+      width: 300px;
+      justify-self: center;
     }
   }
   .frame {
-    position: relative;
     border-radius: 28px;
     padding: 1px;
     background: linear-gradient(160deg, rgba(94, 234, 212, 0.6), rgba(167, 139, 250, 0.5) 50%, transparent 85%);
@@ -117,28 +162,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
     object-position: 50% 0%;
     border-radius: 27px;
   }
-  /* the floating "Currently" badge only fits beside the large desktop photo */
-  .badge {
+  .links {
     display: none;
-    position: absolute;
-    left: 50%;
-    bottom: -18px;
-    transform: translateX(-50%);
-    margin: 0;
-    align-items: center;
-    gap: 8px;
-    white-space: nowrap;
-    padding: 8px 14px;
-    border-radius: 999px;
-    font-size: 13px;
-    background: rgba(13, 15, 20, 0.85);
-    border: 1px solid var(--line-strong);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    gap: 20px;
+    margin: 18px 0 0;
+    font-size: 14px;
+    color: var(--dim);
+  }
+  .links a:hover {
+    color: var(--fg);
   }
   @media (min-width: 900px) {
-    .badge {
-      display: inline-flex;
+    .links {
+      display: flex;
     }
   }
 </style>

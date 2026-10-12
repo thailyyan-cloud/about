@@ -61,7 +61,7 @@ const skills = [
       <button class="btn" type="button" onclick="window.print()">Save as PDF</button>
     </div>
 
-    <header class="cv-head">
+    <header class="cv-head enter" style="--i:1">
       <div>
         <h1 id="cv-title">Thái Lý An</h1>
         <p class="role">Electronics &amp; Telecommunications Engineering student · 3rd year</p>
@@ -74,7 +74,7 @@ const skills = [
       </p>
     </header>
 
-    <div class="block">
+    <div class="block rise">
       <h2>Profile</h2>
       <p>
         Engineering student focused on IoT, embedded systems and on-device AI, with the long-term goal of becoming an
@@ -82,7 +82,7 @@ const skills = [
       </p>
     </div>
 
-    <div class="block">
+    <div class="block rise">
       <h2>Education</h2>
       <div>
         <div class="item">
@@ -99,7 +99,7 @@ const skills = [
         ['Projects', projects],
         ['Experience', experience],
       ].map(([heading, list]) => (
-        <div class="block">
+        <div class="block rise">
           <h2>{heading as string}</h2>
           <div>
             {(list as typeof research).map((r) => (
@@ -120,7 +120,7 @@ const skills = [
       ))
     }
 
-    <div class="block">
+    <div class="block rise">
       <h2>Skills</h2>
       <dl class="skills">
         {
@@ -134,7 +134,7 @@ const skills = [
       </dl>
     </div>
 
-    <div class="block">
+    <div class="block rise">
       <h2>Interests</h2>
       <p>Cacti, predatory fish, travel (preferably near a waterfall).</p>
     </div>

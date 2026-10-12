@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/inter';
 import '../styles/global.css';
+import circuitTile from '../assets/circuit-tile.svg';
 
 interface Props {
   title: string;
@@ -33,8 +34,11 @@ const year = new Date().getFullYear();
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta name="generator" content={Astro.generator} />
+    <!-- Entrance animations only hide content when JS is running; without JS everything shows. -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
+    <div class="bg-circuit" aria-hidden="true" style={`--tile: url(${circuitTile.src})`}></div>
     <a class="skip" href="#main">Skip to content</a>
     <header class="nav">
       <div class="container">
@@ -65,6 +69,29 @@ const year = new Date().getFullYear();
 
     <script is:inline>
       (function () {
+        // Reveal sections as they scroll into view.
+        var els = document.querySelectorAll('.rise');
+        if ('IntersectionObserver' in window) {
+          var io = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (e) {
+                if (e.isIntersecting) {
+                  e.target.classList.add('in');
+                  io.unobserve(e.target);
+                }
+              });
+            },
+            { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+          );
+          els.forEach(function (el) {
+            io.observe(el);
+          });
+        } else {
+          els.forEach(function (el) {
+            el.classList.add('in');
+          });
+        }
+
         // Projects open in a dialog on the home page; elsewhere the link navigates to /me/#projects.
         var dlg = document.getElementById('projects-dialog');
         function open() {

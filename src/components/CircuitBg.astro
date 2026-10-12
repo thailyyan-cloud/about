@@ -1,0 +1,88 @@
+---
+// Decorative PCB traces behind the hero, with a few "signal pulses" travelling along them.
+// Pure SVG + CSS; the pulses stop when the visitor prefers reduced motion.
+const traces = [
+  'M-20 90H180L230 140H420L460 100H640',
+  'M-20 200H120L170 250H360',
+  'M1220 120H1000L950 170H780L740 210H600',
+  'M1220 260H1080L1040 300H900',
+  'M-20 420H90L140 370H300L340 330H480',
+  'M1220 460H1110L1060 510H880L840 470H720',
+  'M-20 600H220L270 650H520L560 610H700',
+  'M1220 640H980L940 600H800',
+  'M300 -20V60L340 100',
+  'M900 -20V40L860 80H780',
+  'M620 740V660L660 620H760',
+  'M180 740V700L220 660H300',
+];
+const vias = [
+  [640, 100], [360, 250], [600, 210], [900, 300], [480, 330], [720, 470],
+  [700, 610], [800, 600], [340, 100], [780, 80], [760, 620], [300, 660],
+];
+// which traces carry a pulse, and when it starts
+const pulses = [
+  [0, 0], [2, 1.6], [4, 3.1], [5, 0.8], [6, 2.4], [9, 4.2], [3, 5.0],
+];
+---
+
+<svg class="circuit" viewBox="0 0 1200 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g class="traces">
+    {traces.map((d) => <path d={d} />)}
+  </g>
+  <g class="vias">
+    {vias.map(([x, y]) => <circle cx={x} cy={y} r="4.5" />)}
+  </g>
+  <g class="chip">
+    <rect x="1010" y="360" width="90" height="60" rx="6" />
+    {[0, 1, 2, 3, 4].map((i) => <path d={`M${1022 + i * 16} 360v-12M${1022 + i * 16} 420v12`} />)}
+  </g>
+  <g class="pulses">
+    {pulses.map(([i, delay]) => <path d={traces[i]} pathLength="1000" style={`--delay:${delay}s`} />)}
+  </g>
+</svg>
+
+<style>
+  .circuit {
+    position: absolute;
+    inset: -40px -10vw;
+    width: calc(100% + 20vw);
+    height: calc(100% + 80px);
+    z-index: -1;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(ellipse 70% 75% at 60% 45%, #000 30%, transparent 85%);
+    mask-image: radial-gradient(ellipse 70% 75% at 60% 45%, #000 30%, transparent 85%);
+  }
+  .traces path,
+  .chip rect,
+  .chip path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.09);
+    stroke-width: 1.5;
+  }
+  .vias circle {
+    fill: var(--bg);
+    stroke: rgba(94, 234, 212, 0.35);
+    stroke-width: 1.5;
+  }
+  .pulses path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 0 1000;
+    filter: drop-shadow(0 0 4px rgba(94, 234, 212, 0.9));
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .pulses path {
+      stroke-dasharray: 60 1000;
+      stroke-dashoffset: 1060;
+      animation: flow 5.5s linear infinite;
+      animation-delay: var(--delay);
+    }
+    @keyframes flow {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+</style>

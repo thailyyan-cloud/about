@@ -17,7 +17,7 @@ const now = itemsOf('now')
 ---
 
 <section id="life" class="container" aria-labelledby="life-title">
-  <div class="section-head">
+  <div class="section-head rise">
     <p class="eyebrow">Outside the lab</p>
     <h2 id="life-title">A bit of my life.</h2>
   </div>
@@ -28,7 +28,7 @@ const now = itemsOf('now')
         const n = photosOf(c.id);
         const size = layout[i] ?? 'small';
         return (
-          <a class={`tile ${size} rise`} href={`${base}/me/${c.id}/`}>
+          <a class={`tile ${size} rise`} style={`--d:${i * 90}ms`} href={`${base}/me/${c.id}/`}>
             {c.data.cover ? (
               <Image
                 src={c.data.cover}
