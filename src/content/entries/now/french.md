@@ -1,7 +1,7 @@
 ---
 title: Learning French
 status: slowly
-order: 4
+order: 5
 tags: [languages]
 ---
 

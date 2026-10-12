@@ -1,7 +1,7 @@
 ---
 title: SmartGate thesis
 status: learning phase
-order: 2
+order: 3
 tags: [Raspberry Pi, STM32, computer vision]
 ---
 

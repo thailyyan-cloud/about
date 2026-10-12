@@ -1,7 +1,7 @@
 ---
 title: IoT & embedded AI
 status: new direction
-order: 1
+order: 2
 tags: [IoT, embedded systems, embedded AI]
 ---
 
