@@ -2,7 +2,7 @@
 
 Personal portfolio of Thái Lý An: computer-vision research and embedded systems.
 
-Live site: https://thailyyan-cloud.github.io/portfolio/
+Live site: https://thailyyan-cloud.github.io/about/me/
 
 ## Stack
 
@@ -14,7 +14,7 @@ Live site: https://thailyyan-cloud.github.io/portfolio/
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321/portfolio/
+npm run dev      # http://localhost:4321/about/me/
 npm run build    # static output in dist/
 ```
 
@@ -23,7 +23,7 @@ npm run build    # static output in dist/
 Visits are counted with [GoatCounter](https://www.goatcounter.com) (no cookies, no personal data). The script is only rendered when the repo has an Actions variable `GOATCOUNTER_CODE` set to a real site code:
 
 ```bash
-gh variable set GOATCOUNTER_CODE --body "<your-site-code>" --repo thailyyan-cloud/portfolio
+gh variable set GOATCOUNTER_CODE --body "<your-site-code>" --repo thailyyan-cloud/about
 ```
 
 Then re-run the deploy workflow. In GoatCounter, *User settings → Send email reports → Monthly* sends the report on the first day of each month.
@@ -34,7 +34,7 @@ Then re-run the deploy workflow. In GoatCounter, *User settings → Send email r
 src/
 ├── components/   Hero · About · Projects · Experience · Contact
 ├── layouts/      Layout.astro (head, nav, footer)
-├── pages/        index.astro (single page)
+├── pages/        me.astro (the site, /about/me/) · index.astro (redirects /about/ → /about/me/)
 └── styles/       global.css (design tokens, shared styles)
 .github/workflows/deploy.yml
 ```
