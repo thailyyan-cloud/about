@@ -68,7 +68,7 @@ const goatcounter = /^[a-z0-9-]+$/i.test(rawCode) && rawCode.toUpperCase() !== '
               entries.forEach(function (e) {
                 if (!e.isIntersecting) return;
                 links.forEach(function (l) {
-                  l.getAttribute('href') === '#' + e.target.id
+                  (l.getAttribute('href') || '').slice(-(e.target.id.length + 1)) === '#' + e.target.id
                     ? l.setAttribute('aria-current', 'true')
                     : l.removeAttribute('aria-current');
                 });

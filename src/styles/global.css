@@ -128,10 +128,11 @@ button:focus-visible {
     align-self: start;
     height: 100vh;
     height: 100dvh;
-    padding: 56px 0 32px;
+    padding: 44px 0 28px;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    scrollbar-width: thin;
   }
 }
 

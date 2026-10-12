@@ -1,0 +1,93 @@
+---
+import { getCollection } from 'astro:content';
+import Glyph from './Glyph.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const corners = (await getCollection('corners')).sort((a, b) => a.data.order - b.data.order);
+const entries = await getCollection('entries');
+const countFor = (slug: string) => entries.filter((e) => e.id.split('/')[0] === slug).length;
+---
+
+<div class="corners">
+  {
+    corners.map((c) => {
+      const n = countFor(c.id);
+      return (
+        <a class="corner rise" href={`${base}/me/${c.id}/`}>
+          <span class="glyph">
+            <Glyph name={c.data.icon} size={44} />
+          </span>
+          <span class="body">
+            <span class="title">
+              {c.data.title} <span aria-hidden="true">→</span>
+            </span>
+            <span class="tagline">{c.data.tagline}</span>
+            <span class="count mono">{n === 0 ? 'photos coming soon' : `${n} ${n === 1 ? 'entry' : 'entries'}`}</span>
+          </span>
+        </a>
+      );
+    })
+  }
+</div>
+
+<style>
+  .corners {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  @media (min-width: 640px) {
+    .corners {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .corner {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--panel);
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .corner:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    color: inherit;
+  }
+  .glyph {
+    flex: none;
+    color: var(--accent);
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border: 1px dashed var(--line);
+    border-radius: 8px;
+    background: var(--bg);
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .title {
+    font-weight: 600;
+  }
+  .corner:hover .title {
+    color: var(--accent);
+  }
+  .tagline {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .count {
+    font-size: 11px;
+    color: var(--warm);
+    margin-top: 4px;
+  }
+</style>

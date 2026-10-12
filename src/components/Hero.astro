@@ -1,6 +1,9 @@
 ---
 import portrait from '../assets/portrait.webp';
 
+// Absolute links so the nav also works from the sub-pages (/about/me/cacti/ etc.).
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const nav = [
   ['about', 'About'],
   ['projects', 'Projects'],
@@ -22,19 +25,21 @@ const nav = [
       />
     </div>
     <div class="who">
-      <p class="eyebrow mono">EE student · IU – VNU-HCM</p>
+      <p class="eyebrow mono">Electronics &amp; Telecommunications Engineering</p>
       <h1>Thái Lý An</h1>
+      <p class="school mono">3rd year · International University, VNU-HCM</p>
     </div>
   </div>
 
   <p class="lead">
-    I train vision models, build drones, and I'm slowly designing a smart gate for my thesis.
+    I train vision models and squeeze them onto small devices. Right now I'm slowly designing a smart gate for my
+    thesis.
   </p>
 
   <nav aria-label="Primary" class="nav">
     {
       nav.map(([id, name], i) => (
-        <a href={`#${id}`} data-spy>
+        <a href={`${base}/me/#${id}`} data-spy>
           <span class="n mono">0{i + 1}</span>
           <span class="t">{name}</span>
         </a>
@@ -85,6 +90,11 @@ const nav = [
     font-size: clamp(1.9rem, 6vw, 2.3rem);
     letter-spacing: -0.02em;
   }
+  .school {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin: 6px 0 0;
+  }
   .lead {
     color: var(--muted);
     margin: 20px 0 0;
@@ -130,18 +140,18 @@ const nav = [
     .id {
       flex-direction: column;
       align-items: flex-start;
-      gap: 24px;
+      gap: 18px;
     }
     .photo {
-      width: 200px;
+      width: 152px;
     }
     .nav {
       flex-direction: column;
-      gap: 2px;
-      margin-top: 32px;
+      gap: 0;
+      margin-top: 24px;
     }
     .nav a {
-      padding: 5px 0;
+      padding: 4px 0;
       gap: 12px;
       transition: transform 0.15s;
     }
@@ -160,7 +170,7 @@ const nav = [
     }
     .links {
       margin-top: auto;
-      padding-top: 28px;
+      padding-top: 20px;
     }
   }
 </style>
