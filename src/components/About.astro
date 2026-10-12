@@ -22,29 +22,27 @@ const stack = [
 <section id="about" aria-labelledby="about-title">
   <h2 class="label" id="about-title"><span class="no">01</span> about</h2>
   <p>
-    I like the layer where software meets the physical world: buses, power, timing, and the failures that follow. On
-    the research side I treat every claim as something that has to be measured, not asserted.
+    The long-term dream is aviation. One day I want to work on real aircraft; until then, I get my fix from building
+    drones.
+  </p>
+  <p>
+    Outside the lab I'm usually thinking about the next trip. Singapore and Malaysia were the latest, and somehow I
+    always end up near water: a waterfall, a river, the sea. I also started a small business importing shoes and pet
+    products, and did the sourcing, the content and the marketing myself. It taught me that a good idea only matters if
+    you can explain it to the person in front of you. And I'm learning French, slowly.
   </p>
 
   <h3 class="sub mono">How I work</h3>
-  <ul>
-    <li>
-      <strong>Measure before fixing.</strong> Rules come from measurements on real data, not hypotheses. Each one ships
-      with a test that reproduces the observed case.
-    </li>
-    <li>
-      <strong>Prove a component matters.</strong> Before training, randomize a branch and check that the output
-      changes. A check like this exposed a dead 85.8M-parameter branch.
-    </li>
-    <li>
-      <strong>Report what was measured.</strong> Fixed and logged seeds, multiple runs, bootstrap confidence
-      intervals, multiple-comparison correction, predictions written down before each run, negative results kept.
-    </li>
-    <li>
-      <strong>System before model; safety in hardware.</strong> Cut compute at the system level before buying an
-      accelerator. Software can request an action; the field node decides.
-    </li>
-  </ul>
+  <p>
+    If a model scores suspiciously well, I go looking for the shortcut before I celebrate. That habit is how I
+    caught AquaVision-X reading the background instead of the fish. Before each run I write down what I
+    expect, I log every seed, and I keep the runs that went badly, so anyone can check my numbers.
+  </p>
+  <p>
+    I also try to prove a part actually does something before I trust it: once, randomizing a whole 85.8M-parameter
+    branch changed nothing, which told me it had been dead all along. On the hardware side I'd rather solve a problem at
+    the system level than buy a faster chip, and safety belongs in firmware, not in Python.
+  </p>
 
   <h3 class="sub mono">Stack</h3>
   <p class="note muted">
@@ -65,14 +63,10 @@ const stack = [
     </table>
   </div>
 
-  <h3 class="sub mono">Research interests</h3>
-  <p>
-    Computer vision and ML for data processing, Internet of Things, Digital Signal Processing, and Cloud-RAN / network
-    security for 5G.
+  <p class="meta muted">
+    <span class="mono">Interests</span> computer vision · IoT · signal processing · 5G networks<br />
+    <span class="mono">Languages</span> Vietnamese · English (IELTS 6.5) · French (getting there)
   </p>
-
-  <h3 class="sub mono">Languages</h3>
-  <p>English (IELTS 6.5) · Vietnamese · French (learning)</p>
 </section>
 
 <style>
@@ -85,6 +79,16 @@ const stack = [
   .note {
     font-size: 14px;
     margin-bottom: 10px;
+  }
+  .meta {
+    font-size: 14px;
+    margin-top: 18px;
+    line-height: 1.9;
+  }
+  .meta .mono {
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-right: 8px;
   }
   th[scope='row'] {
     white-space: nowrap;
