@@ -44,7 +44,7 @@ const entries = [
 ---
 
 <section id="experience" aria-labelledby="experience-title">
-  <h2 class="label" id="experience-title">experience</h2>
+  <h2 class="label" id="experience-title"><span class="no">03</span> experience</h2>
   <ol class="timeline">
     {
       entries.map((e) => (
@@ -70,16 +70,33 @@ const entries = [
     margin: 0;
     padding: 0;
   }
+  .timeline {
+    border-left: 1px solid var(--line);
+    margin-left: 4px;
+  }
   .timeline li {
+    position: relative;
     display: grid;
     grid-template-columns: 120px 1fr;
     gap: 16px;
-    padding: 14px 0;
-    border-top: 1px solid var(--line);
+    padding: 14px 0 14px 22px;
     margin: 0;
   }
-  .timeline li:last-child {
-    border-bottom: 1px solid var(--line);
+  /* node on the line */
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 21px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--accent);
+    transition: background 0.15s;
+  }
+  .timeline li:hover::before {
+    background: var(--accent);
   }
   .kind {
     font-size: 12.5px;
@@ -103,6 +120,7 @@ const entries = [
     .timeline li {
       grid-template-columns: 1fr;
       gap: 2px;
+      padding-left: 18px;
     }
   }
 </style>

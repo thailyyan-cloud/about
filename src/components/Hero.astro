@@ -1,62 +1,165 @@
 ---
+import portrait from '../assets/portrait.webp';
+
+const nav = [
+  ['about', 'About'],
+  ['projects', 'Projects'],
+  ['experience', 'Experience'],
+  ['contact', 'Contact'],
+];
 ---
 
-<section class="hero" aria-labelledby="hero-title">
-  <p class="eyebrow mono">EE student · International University (VNU-HCM)</p>
-  <h1 id="hero-title">Thái Lý An</h1>
+<div class="hero">
+  <div class="id">
+    <div class="photo marks">
+      <img
+        src={portrait.src}
+        width="640"
+        height="960"
+        alt="Portrait of Thái Lý An in a white shirt"
+        decoding="async"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="who">
+      <p class="eyebrow mono">EE student · IU – VNU-HCM</p>
+      <h1>Thái Lý An</h1>
+    </div>
+  </div>
+
   <p class="lead">
     I build intelligent edge systems: computer-vision research in Python, and the embedded hardware it has to run on.
-    I care about results I can defend: fixed seeds, confidence intervals, and tests that prove a component matters.
   </p>
-  <dl class="facts mono">
-    <div><dt>focus</dt><dd>Computer vision · Edge AI · Embedded systems</dd></div>
-    <div><dt>research</dt><dd>Aquaculture disease classification (fish, shrimp)</dd></div>
-    <div><dt>thesis</dt><dd>SmartGate, edge-AI access control · build planned for 2028</dd></div>
-    <div><dt>status</dt><dd>3rd year, Electronics &amp; Telecommunications</dd></div>
-  </dl>
-  <p class="actions">
-    <a class="btn primary" href="#projects">View projects</a>
+
+  <nav aria-label="Primary" class="nav">
+    {
+      nav.map(([id, name], i) => (
+        <a href={`#${id}`} data-spy>
+          <span class="n mono">0{i + 1}</span>
+          <span class="t">{name}</span>
+        </a>
+      ))
+    }
+  </nav>
+
+  <p class="links">
+    <a class="btn primary" href="mailto:thailyyan@gmail.com">Email</a>
     <a class="btn" href="https://github.com/thailyyan-cloud">GitHub</a>
-    <a class="btn" href="mailto:thailyyan@gmail.com">Email</a>
   </p>
-</section>
+</div>
 
 <style>
   .hero {
-    padding-top: 72px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding-top: 36px;
+  }
+  .id {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .photo {
+    width: 96px;
+    flex: none;
+    margin: 7px;
+  }
+  .photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 0%;
+    border-radius: 3px;
+    background: var(--panel);
   }
   .eyebrow {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--accent);
-    margin: 0 0 14px;
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: clamp(1.9rem, 6vw, 2.3rem);
+    letter-spacing: -0.02em;
   }
   .lead {
-    font-size: 1.15rem;
-    color: var(--fg);
-    max-width: 62ch;
-    margin: 18px 0 24px;
-  }
-  .facts {
-    margin: 0 0 28px;
-    font-size: 13px;
-    border-left: 2px solid var(--line);
-    padding-left: 14px;
-  }
-  .facts div {
-    display: flex;
-    gap: 14px;
-    margin-bottom: 4px;
-  }
-  .facts dt {
     color: var(--muted);
-    min-width: 68px;
+    margin: 20px 0 0;
+    max-width: 44ch;
   }
-  .facts dd {
-    margin: 0;
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    margin-top: 22px;
   }
-  .actions {
+  .nav a {
+    display: inline-flex;
+    gap: 8px;
+    align-items: baseline;
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .nav .n {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  .nav a:hover,
+  .nav a[aria-current='true'] {
+    color: var(--fg);
+  }
+  .nav a[aria-current='true'] .n {
+    color: var(--accent);
+  }
+  .links {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin: 22px 0 0;
+  }
+
+  @media (min-width: 1000px) {
+    .hero {
+      padding-top: 0;
+      height: 100%;
+    }
+    .id {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 24px;
+    }
+    .photo {
+      width: 200px;
+    }
+    .nav {
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 32px;
+    }
+    .nav a {
+      padding: 5px 0;
+      gap: 12px;
+      transition: transform 0.15s;
+    }
+    .nav a:hover,
+    .nav a[aria-current='true'] {
+      transform: translateX(4px);
+    }
+    .nav a[aria-current='true']::before {
+      content: '';
+      align-self: center;
+      width: 22px;
+      height: 1px;
+      background: var(--accent);
+      order: -1;
+      margin-right: -4px;
+    }
+    .links {
+      margin-top: auto;
+      padding-top: 28px;
+    }
   }
 </style>

@@ -24,6 +24,9 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: 24
+        env:
+          # Optional repo variable. Empty means no analytics script is rendered.
+          PUBLIC_GOATCOUNTER_CODE: ${{ vars.GOATCOUNTER_CODE }}
 
   deploy:
     needs: build

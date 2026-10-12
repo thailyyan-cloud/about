@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import Glance from '../components/Glance.astro';
 import About from '../components/About.astro';
 import Projects from '../components/Projects.astro';
 import Experience from '../components/Experience.astro';
@@ -11,11 +12,10 @@ import Contact from '../components/Contact.astro';
   title="Thái Lý An · Electronics & Telecommunications"
   description="EE student doing computer-vision research (fish and shrimp disease classification) and embedded systems (SmartGate on Raspberry Pi 4B and STM32)."
 >
-  <div class="wrap">
-    <Hero />
-    <About />
-    <Projects />
-    <Experience />
-    <Contact />
-  </div>
+  <Hero slot="side" />
+  <Glance />
+  <About />
+  <Projects />
+  <Experience />
+  <Contact />
 </Layout>

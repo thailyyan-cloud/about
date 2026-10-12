@@ -6,8 +6,8 @@ Live site: https://thailyyan-cloud.github.io/portfolio/
 
 ## Stack
 
-- [Astro](https://astro.build) static site, zero client-side JavaScript
-- Plain CSS with `prefers-color-scheme` light/dark, system font stack (no external requests)
+- [Astro](https://astro.build) static site; about 20 lines of inline progressive-enhancement script (nav scroll-spy, pointer glow)
+- Plain CSS with `prefers-color-scheme` light/dark, system font stack, blueprint-style design (no external requests)
 - GitHub Actions deploys to GitHub Pages on every push to `main`
 
 ## Develop
@@ -17,6 +17,16 @@ npm install
 npm run dev      # http://localhost:4321/portfolio/
 npm run build    # static output in dist/
 ```
+
+## Analytics (optional)
+
+Visits are counted with [GoatCounter](https://www.goatcounter.com) (no cookies, no personal data). The script is only rendered when the repo has an Actions variable `GOATCOUNTER_CODE` set to a real site code:
+
+```bash
+gh variable set GOATCOUNTER_CODE --body "<your-site-code>" --repo thailyyan-cloud/portfolio
+```
+
+Then re-run the deploy workflow. In GoatCounter, *User settings → Send email reports → Monthly* sends the report on the first day of each month.
 
 ## Structure
 
