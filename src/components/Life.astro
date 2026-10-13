@@ -28,7 +28,7 @@ const now = itemsOf('now')
         const n = photosOf(c.id);
         const size = layout[i] ?? 'small';
         return (
-          <a class={`tile ${size} rise`} style={`--d:${i * 90}ms`} href={`${base}/me/${c.id}/`}>
+          <a class={`tile ${size} rise`} style={`--d:${i * 90}ms`} href={`${base}/about/me/${c.id}/`}>
             {c.data.cover ? (
               <Image
                 src={c.data.cover}

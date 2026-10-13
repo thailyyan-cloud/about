@@ -2,7 +2,7 @@
 
 Personal portfolio of Thái Lý An: computer-vision research and embedded systems.
 
-Live site: https://thailyyan-cloud.github.io/about/me/
+Live site: https://lyan.is-a.dev/about/me/ (custom domain via [is-a.dev](https://is-a.dev); the old thailyyan-cloud.github.io/about/me/ links redirect here)
 
 ## Stack
 
@@ -59,12 +59,12 @@ Then re-run the deploy workflow. In GoatCounter, *User settings → Send email r
 
 ```text
 src/
-├── components/   Hero · About · Life (photo tiles) · Contact · ProjectsDialog (opens from "Projects") · Glyph
+├── components/   Hero (intro + datasheet) · Life (photo tiles) · Contact · ProjectsDialog · CircuitBg · Glyph · Redirect
 ├── layouts/      Layout.astro (head, nav, footer)
 ├── content/      corners/*.md · entries/<corner>/*.md (hobbies, photos, "now")
-├── pages/        me.astro (/about/me/) · me/cv.astro (/about/me/cv/, printable) · me/[corner].astro (/about/me/<corner>/) · index.astro (redirect)
+├── pages/        about/me.astro (/about/me/) · about/me/cv.astro · about/me/[corner].astro · index + about/index + me/[...path] (redirects)
 └── styles/       global.css (design tokens, shared styles)
 .github/workflows/deploy.yml
 ```
 
-All text is in the section components. `astro.config.mjs` sets `site` and `base` for the project-page URL; change both if the repo is renamed.
+All text is in the section components. `astro.config.mjs` sets `site` to the custom domain; the Pages custom domain itself is set in the repo settings (GitHub Actions deploys need no CNAME file).

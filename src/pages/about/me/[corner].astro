@@ -1,8 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
-import Layout from '../../layouts/Layout.astro';
-import Glyph from '../../components/Glyph.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Glyph from '../../../components/Glyph.astro';
 
 export async function getStaticPaths() {
   const corners = await getCollection('corners');
@@ -35,7 +35,7 @@ const icon = corner.data.icon;
 
 <Layout title={`${corner.data.title} · Thái Lý An`} description={corner.data.tagline}>
   <section class="container page" aria-labelledby="corner-title">
-    <a class="back enter" style="--i:0" href={`${base}/me/#life`}>← Back</a>
+    <a class="back enter" style="--i:0" href={`${base}/about/me/#life`}>← Back</a>
     <header class="head">
       <span class="glyph enter" style="--i:1"><Glyph name={icon} size={40} /></span>
       <div class="enter" style="--i:2">
@@ -99,7 +99,7 @@ const icon = corner.data.icon;
     <nav class="more" aria-label="Other pages">
       {
         others.map((c) => (
-          <a href={`${base}/me/${c.id}/`}>
+          <a href={`${base}/about/me/${c.id}/`}>
             <Glyph name={c.data.icon} size={18} /> {c.data.title}
           </a>
         ))

@@ -1,0 +1,25 @@
+---
+// A static redirect page. The script keeps the #fragment (e.g. #projects);
+// the meta refresh is the fallback when JavaScript is off.
+interface Props {
+  to: string;
+}
+const { to } = Astro.props;
+const canonical = new URL(to, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Thái Lý An</title>
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="noindex" />
+    <script is:inline define:vars={{ to }}>location.replace(to + location.hash);</script>
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+  </head>
+  <body style="background:#07080b;color:#9aa3b2;font-family:system-ui,sans-serif">
+    <p>Moved to <a href={to} style="color:#5eead4">{canonical.href}</a></p>
+  </body>
+</html>

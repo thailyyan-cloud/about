@@ -1,0 +1,15 @@
+---
+// Old links were thailyyan-cloud.github.io/about/me/... ; with the custom domain GitHub sends
+// them to lyan.is-a.dev/me/... (the repo name drops out). Forward those to /about/me/...
+import { getCollection } from 'astro:content';
+import Redirect from '../../components/Redirect.astro';
+
+export async function getStaticPaths() {
+  const corners = await getCollection('corners');
+  return [undefined, 'cv', ...corners.map((c) => c.id)].map((path) => ({ params: { path } }));
+}
+
+const { path } = Astro.params;
+---
+
+<Redirect to={`/about/me/${path ? `${path}/` : ''}`} />

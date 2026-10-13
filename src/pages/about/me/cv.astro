@@ -1,5 +1,5 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from '../../../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
@@ -62,7 +62,7 @@ const skills = [
 <Layout title="CV · Thái Lý An" description="CV of Thái Lý An, Electronics & Telecommunications Engineering student at IU, VNU-HCM.">
   <section class="container cv" aria-labelledby="cv-title">
     <div class="bar no-print">
-      <a href={`${base}/me/`} class="back">← Back</a>
+      <a href={`${base}/about/me/`} class="back">← Back</a>
       <button class="btn" type="button" onclick="window.print()">Save as PDF</button>
     </div>
 
@@ -74,7 +74,7 @@ const skills = [
       <p class="contact">
         <a href="mailto:thailyyan@gmail.com">thailyyan@gmail.com</a>
         <span>Ho Chi Minh City, Vietnam</span>
-        <a href="https://thailyyan-cloud.github.io/about/me/">thailyyan-cloud.github.io/about/me</a>
+        <a href="https://lyan.is-a.dev/about/me/">lyan.is-a.dev/about/me</a>
         <a href="https://github.com/thailyyan-cloud">github.com/thailyyan-cloud</a>
       </p>
     </header>

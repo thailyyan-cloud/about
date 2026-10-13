@@ -1,19 +1,5 @@
 ---
-// /about/ has no content of its own: send visitors to /about/me/.
-const target = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/me/`;
+import Redirect from '../components/Redirect.astro';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Thái Lý An</title>
-    <meta http-equiv="refresh" content={`0; url=${target}`} />
-    <link rel="canonical" href={new URL(target, Astro.site)} />
-    <meta name="robots" content="noindex" />
-  </head>
-  <body>
-    <p>Redirecting to <a href={target}>{target}</a>…</p>
-  </body>
-</html>
+<Redirect to="/about/me/" />
