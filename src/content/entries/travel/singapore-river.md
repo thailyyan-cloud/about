@@ -2,7 +2,7 @@
 title: "Singapore River"
 order: 9
 image: ./singapore-river.webp
-imageAlt: "Singapore River with office towers on a cloudy day"
+imageAlt: "Office towers along the Singapore River on a cloudy day"
 tags: ["Singapore"]
 ---
 

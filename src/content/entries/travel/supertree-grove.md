@@ -1,8 +1,8 @@
 ---
-title: "Supertree Grove"
+title: "Gardens by the Bay, Singapore"
 order: 6
 image: ./supertree-grove.webp
-imageAlt: "Glowing Supertrees at Gardens by the Bay at night"
+imageAlt: "Glowing Supertrees at night"
 tags: ["Singapore","night"]
 ---
 

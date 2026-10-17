@@ -1,8 +1,8 @@
 ---
-title: "Dambri Falls"
+title: "Dambri Falls, Lâm Đồng"
 order: 1
 image: ./dambri-falls.webp
-imageAlt: "Dambri waterfall in Vietnam under a blue sky"
+imageAlt: "Dambri Falls under a blue sky"
 tags: ["Vietnam","waterfall"]
 ---
 

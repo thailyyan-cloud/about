@@ -1,8 +1,8 @@
 ---
-title: "Boat below the hills"
+title: "Langkawi, Malaysia"
 order: 13
 image: ./boat-below-the-hills.webp
-imageAlt: "A small boat on the water below green hills, Langkawi"
+imageAlt: "A small boat on the water below green hills"
 tags: ["Malaysia"]
 ---
 

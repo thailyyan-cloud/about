@@ -1,8 +1,8 @@
 ---
-title: ShrimpVision research
-status: in progress
+title: "ShrimpVision"
+status: "in progress"
 order: 4
 tags: [PyTorch, research]
 ---
 
-Comparing seven image models for shrimp disease diagnosis under the same rules, and working out where the best one actually wins.
+Seven image models, same rules, one question: which one is actually best at spotting shrimp diseases?

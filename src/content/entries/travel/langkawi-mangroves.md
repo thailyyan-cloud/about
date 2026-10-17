@@ -1,8 +1,8 @@
 ---
-title: "Langkawi mangroves"
+title: "Langkawi, Malaysia"
 order: 12
 image: ./langkawi-mangroves.webp
-imageAlt: "Mangrove forest along a river in Langkawi"
+imageAlt: "A mangrove forest along a river"
 tags: ["Malaysia"]
 ---
 

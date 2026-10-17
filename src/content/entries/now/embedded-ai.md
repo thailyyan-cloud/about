@@ -1,8 +1,8 @@
 ---
-title: IoT & embedded AI
-status: new direction
+title: "IoT & embedded AI"
+status: "new direction"
 order: 2
 tags: [IoT, embedded systems, embedded AI]
 ---
 
-Shifting my focus to IoT, embedded systems and AI that runs on the device: microcontrollers, sensors, field buses and small models that keep working when the internet doesn't.
+Microcontrollers, sensors and small AI models that keep working when the Wi-Fi doesn't.

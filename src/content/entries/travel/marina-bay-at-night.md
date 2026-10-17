@@ -1,8 +1,8 @@
 ---
-title: "Marina Bay at night"
+title: "Marina Bay, Singapore"
 order: 4
 image: ./marina-bay-at-night.webp
-imageAlt: "Singapore skyline reflected in Marina Bay at night"
+imageAlt: "The Singapore skyline reflected in Marina Bay at night"
 tags: ["Singapore","night"]
 ---
 

@@ -1,8 +1,8 @@
 ---
-title: "A building that grew a garden"
+title: "Singapore"
 order: 8
 image: ./a-building-that-grew-a-garden.webp
-imageAlt: "A tower with terraces covered in plants, Singapore"
+imageAlt: "A tower with terraces covered in plants"
 tags: ["Singapore","architecture"]
 ---
 

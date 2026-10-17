@@ -1,8 +1,8 @@
 ---
-title: "Marina Bay Street Circuit"
+title: "Marina Bay Street Circuit, Singapore"
 order: 10
 image: ./marina-bay-street-circuit.webp
-imageAlt: "Banner for the Marina Bay Street Circuit with drawings of F1 cars"
+imageAlt: "A banner for the Marina Bay Street Circuit with F1 car drawings"
 tags: ["Singapore","F1"]
 ---
 

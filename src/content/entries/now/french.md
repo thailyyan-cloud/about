@@ -1,8 +1,8 @@
 ---
-title: Learning French
-status: slowly
+title: "French, slowly"
+status: "learning"
 order: 5
 tags: [languages]
 ---
 
-Vocabulary one topic at a time. Ask me again in a year.
+One topic at a time. Ask me again in a year.
