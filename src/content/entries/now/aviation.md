@@ -5,4 +5,4 @@ order: 1
 tags: [aviation, maintenance]
 ---
 
-The long game. Planes are full of sensors and tiny computers, so everything I learn about embedded systems counts toward it.
+The long-term goal. Aircraft are full of sensors and embedded computers, so what I learn now carries over.

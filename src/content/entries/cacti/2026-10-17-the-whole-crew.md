@@ -7,4 +7,4 @@ imageAlt: "Shelves full of potted cacti in the sun"
 tags: ["collection"]
 ---
 
-Most of my free time ends up on these shelves.
+Most of the collection, in the afternoon sun.

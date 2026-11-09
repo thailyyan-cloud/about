@@ -7,4 +7,4 @@ imageAlt: "The red pot held up close, with a red cactus in the middle"
 tags: ["gymno"]
 ---
 
-Couldn't pick one angle, so here's another.
+The same pot, up close.

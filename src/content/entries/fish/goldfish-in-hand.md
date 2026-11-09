@@ -6,4 +6,4 @@ imageAlt: "A round orange and white goldfish resting in a palm"
 tags: ["goldfish"]
 ---
 
-Round, orange and completely unbothered.
+A goldfish, round and orange.

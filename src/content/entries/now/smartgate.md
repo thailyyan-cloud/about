@@ -5,4 +5,4 @@ order: 3
 tags: [Raspberry Pi, STM32, computer vision]
 ---
 
-A gate that knows faces and licence plates, no internet needed. Right now it's bench experiments on a Raspberry Pi. The real build comes in 2028.
+A gate that recognises faces and licence plates without internet. For now, bench experiments on a Raspberry Pi. The build is planned for 2028.

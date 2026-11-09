@@ -7,4 +7,4 @@ imageAlt: "Two cacti in fresh gritty soil, one big pot and one small"
 tags: ["repotting"]
 ---
 
-Fresh soil and a bigger home. The little one is still catching up.
+Repotted into fresh, gritty soil.

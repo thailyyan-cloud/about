@@ -6,4 +6,4 @@ imageAlt: "A dark fish with a red belly and sharp teeth against a black backgrou
 tags: ["portrait"]
 ---
 
-Not much of a smiler.
+Calm, and watching.

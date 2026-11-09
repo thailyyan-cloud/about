@@ -1,8 +1,8 @@
 ---
-title: "French, slowly"
+title: "French"
 status: "learning"
 order: 5
 tags: [languages]
 ---
 
-One topic at a time. Ask me again in a year.
+One topic at a time.

@@ -1,11 +1,11 @@
 ---
 title: Predatory fish
-tagline: Sharp teeth, a busy tank, and two very chill goldfish.
+tagline: A tank worth watching.
 icon: fish
 order: 1
 cover: ../entries/fish/up-close.webp
 ---
 
-I keep predatory fish. Clean water, the right food and a lid on the tank keep everyone happy. Feeding time is the best show in the house.
+Predatory fish are calm until they aren't. Clean water, the right food and a good lid, and I can sit and watch them for a long time.
 
-The goldfish are the calm ones.
+The goldfish are the gentle ones.

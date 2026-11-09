@@ -7,4 +7,4 @@ imageAlt: "A row of cacti in pots, one in a bright red pot"
 tags: ["gymno"]
 ---
 
-Full sun, gritty soil, zero complaints.
+Full sun and gritty soil.

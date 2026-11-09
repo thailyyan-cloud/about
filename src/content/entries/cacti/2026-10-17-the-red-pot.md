@@ -7,4 +7,4 @@ imageAlt: "A small red cactus in a round red pot, seen from above"
 tags: ["gymno"]
 ---
 
-Honestly, the pot is doing half the work here.
+A red pot, black lava rock, a small red gymno.

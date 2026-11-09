@@ -7,4 +7,4 @@ imageAlt: "A green cactus with pink and red stripes, seen from above"
 tags: ["gymno"]
 ---
 
-This one decided plain green was too boring.
+Green with pink and red stripes.

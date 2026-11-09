@@ -7,4 +7,4 @@ imageAlt: "A tray of small cacti in square pots"
 tags: ["babies"]
 ---
 
-Small pots, small cacti, big plans.
+Young plants, waiting for bigger pots.

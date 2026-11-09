@@ -7,4 +7,4 @@ imageAlt: "A small red cactus held between two fingers"
 tags: ["gymno"]
 ---
 
-Small enough to hold. Sharp enough to regret it.
+Small enough to hold.

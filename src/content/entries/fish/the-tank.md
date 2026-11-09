@@ -6,4 +6,4 @@ imageAlt: "A tank set up like a riverbed, with driftwood, stones and tinted wate
 tags: ["tank"]
 ---
 
-Driftwood, stones and tinted water. They seem to approve.
+Driftwood, stones and tinted water.

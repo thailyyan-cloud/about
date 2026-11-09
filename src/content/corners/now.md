@@ -1,8 +1,8 @@
 ---
 title: Right now
-tagline: What's keeping me busy.
+tagline: What I'm focused on.
 icon: now
 order: 4
 ---
 
-What I'm up to at the moment. This list changes more often than I'd like to admit.
+What I'm working on at the moment. It changes as I go.

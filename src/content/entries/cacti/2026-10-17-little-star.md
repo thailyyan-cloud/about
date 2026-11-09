@@ -7,4 +7,4 @@ imageAlt: "A ribbed cactus that looks like a star from above"
 tags: ["gymno"]
 ---
 
-Gymnos look best from above. Every rib lines up like a little star.
+Seen from above, the ribs form a star.

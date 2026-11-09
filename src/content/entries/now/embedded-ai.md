@@ -5,4 +5,4 @@ order: 2
 tags: [IoT, embedded systems, embedded AI]
 ---
 
-Microcontrollers, sensors and small AI models that keep working when the Wi-Fi doesn't.
+Microcontrollers, sensors, and small AI models that work without a network.
